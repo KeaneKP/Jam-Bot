@@ -71,15 +71,18 @@ client.on('message', message => {
   if (message.content.startsWith("!roll d")) {
     if (message.content.includes("+")) {
       const mod = message.content.indexOf("+");
-      let roll = Math.floor(Math.random() * +message.content.slice(7, mod-1)) + +message.content.slice(mod+1) + 1;
-      message.channel.send("You have rolled a " + roll);
+      console.log("Mod index: " + mod)
+      let roll = Math.floor(Math.random() * +message.content.slice(7, mod)) + +message.content.slice(mod + 1) + 1;
+      console.log("roll: " + roll)
+      message.channel.send("🎲 You have rolled a " + roll + " 🎲");
+      console.log("output: 🎲 You have rolled a " + roll + " 🎲")
     } else if (message.content.includes("-")) {
       const mod = message.content.indexOf("-");
-      let roll = Math.floor(Math.random() * +message.content.slice(7, mod-1)) - +message.content.slice(mod+1) + 1;
-      message.channel.send("You have rolled a " + roll)
+      let roll = Math.floor(Math.random() * +message.content.slice(7, mod)) - +message.content.slice(mod + 1) + 1;
+      message.channel.send("🎲 You have rolled a " + roll + " 🎲")
     } else {
       try {
-        message.channel.send("You have rolled a " + (Math.floor(Math.random() * +message.content.slice(7))+1))
+        message.channel.send("🎲 You have rolled a " + (Math.floor(Math.random() * +message.content.slice(7)) + 1) + " 🎲")
       } catch {
         message.channel.send("The command has failed, make sure you are rolling an integer die.")
       }
@@ -90,7 +93,23 @@ client.on('message', message => {
     message.channel.send(message.content.slice(7))
     message.channel.send(message.content.slice(7))
   }
-});
+  if (message.content.startsWith("!cleanup ")) {
+    try {
+      for (let i = 0; i < +message.content.slice(8); i++) {
+        message.channel.fetchMessages({ limit: +message.content.slice(7) }).then(messages => {
+          let toDelete = messages.first();
+          toDelete.delete();
+        })
+      }
+    } catch {
+      message.channel.send("nope");
+    }
+  }
+  if (message.content.startsWith("!say ")) {
+    message.delete(1000);
+    message.channel.send(message.content.slice(4, message.content.length));
+  }
+})
 // General = <#600373758221484054>
 client.on('guildMemberAdd', member => {
   let channel = member.guild.channels.find(r => r.name === "general");
@@ -117,4 +136,4 @@ function sacrificeOutcome() {
       return ". The spirits are displeased"
       break;
   }
-} 
+}
