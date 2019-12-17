@@ -62,7 +62,7 @@ client.on('message', message => {
 
   if (message.content.toLowerCase().startsWith("!sacrifice ")) {
     message.channel.send("You have sacrificed " + message.content.slice(11) + sacrificeOutcome())
-  } else if (message.content.toLowerCase().includes("x") && message.member.toString() != "<@651610055816380442>" && message.member.guild.channels.find(r => r.name === "demonstration")) {
+  } else if (message.content.toLowerCase().includes("x") && message.member.toString() != "<@651610055816380442>" && message.member.guild.channels.find(r => r.name === "botavis-use")) {
     message.channel.send(message.member.toString() + "  YOU HAVE ANGERED THE SPIRITS! Quick! use !sacrifice *sacrifice* to please them again!");
   }
   if (message.content == "Is plague a female") {
