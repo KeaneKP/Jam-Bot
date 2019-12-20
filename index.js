@@ -151,7 +151,7 @@ function sacrificeOutcome() {
   }
 }
 function randomEffect() {
-  x = Math.floor(Math.random() * 5);
+  x = Math.floor(Math.random() * 14);
   switch (x) {
     case 0:
       return "super effective!"
