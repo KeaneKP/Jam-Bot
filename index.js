@@ -114,8 +114,11 @@ client.on('message', message => {
       message.delete(1000);
       message.channel.send(message.content.slice(4, message.content.length));
     }
-  }
-  if (message.content == "!start") {
+    if (message.content.startsWith("!cast ")) {
+      let spell = message.content.slice(5);
+      message.channel.send(spell + " was " + randomEffect());
+    }
+  } else if (message.content == "!start") {
     stopped = false;
     message.channel.send("Back up and at em!")
   }
@@ -144,6 +147,26 @@ function sacrificeOutcome() {
       break;
     case 3:
       return ". The spirits are displeased"
+      break;
+  }
+}
+function randomEffect() {
+  x = Math.floor(Math.random() * 5);
+  switch (x) {
+    case 0:
+      return "super effective!"
+      break;
+    case 1:
+      return "very effect"
+      break;
+    case 2:
+      return "not very effective"
+      break;
+    case 3:
+      return "effective"
+      break;
+    case 4:
+      return "shit"
       break;
   }
 }
