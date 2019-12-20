@@ -52,6 +52,7 @@ client.on('message', message => {
     }
     if (message.content == "!stop") {
       stopped = true;
+      message.channel.send("MY BATTERY IS LOW AND IT'S GETTING DARK")
     }
     if (message.content == "!add writer") {
       let member = message.member;
@@ -116,6 +117,7 @@ client.on('message', message => {
   }
   if (message.content == "!start") {
     stopped = false;
+    message.channel.send("Back up and at em!")
   }
 })
 // General = <#600373758221484054>
@@ -145,3 +147,4 @@ function sacrificeOutcome() {
       break;
   }
 }
+setInterval( () => {console.log("Online: " + !stopped)}, 10000)
