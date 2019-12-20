@@ -116,7 +116,7 @@ client.on('message', message => {
     }
     if (message.content.startsWith("!cast ")) {
       let spell = message.content.slice(5);
-      message.channel.send(spell + " was " + randomEffect());
+      message.channel.send("You cast "+ spell + "! It was " + randomEffect());
     }
   } else if (message.content == "!start") {
     stopped = false;
