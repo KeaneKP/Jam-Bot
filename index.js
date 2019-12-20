@@ -168,6 +168,33 @@ function randomEffect() {
     case 4:
       return "shit"
       break;
+    case 5:
+      return "very effective"
+      break;
+    case 6:
+      return "*ok*"
+      break;
+    case 7: 
+      return "a thing"
+      break;
+    case 8:
+      return "super effective!"
+      break;
+    case 9:
+      return "effective"
+      break;
+    case 10:
+      return "not effective"
+      break;
+    case 11:
+      return "kind of effective"
+      break;
+    case 12:
+      return "effective"
+      break;
+    case 13:
+      return "very effective"
+      break;
   }
 }
 setInterval( () => {console.log("Online: " + !stopped)}, 10000)
