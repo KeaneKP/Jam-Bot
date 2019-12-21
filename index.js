@@ -114,12 +114,14 @@ client.on('message', message => {
       message.channel.send("You're not my dad!");
     }
     if (message.content.startsWith("!say ")) {
-      message.delete(1000);
+      if (message.member.hasRole(botOp)) {
+        message.delete(1000);
+      }
       message.channel.send(message.content.slice(4, message.content.length));
     }
     if (message.content.startsWith("!cast ")) {
       let spell = message.content.slice(6);
-      message.channel.send("You cast "+ spell + "! It was " + randomEffect());
+      message.channel.send("You cast " + spell + "! It was " + randomEffect());
     }
   } else if (message.content == "!start") {
     stopped = false;
@@ -177,7 +179,7 @@ function randomEffect() {
     case 6:
       return "*ok*"
       break;
-    case 7: 
+    case 7:
       return "a thing"
       break;
     case 8:
@@ -200,4 +202,4 @@ function randomEffect() {
       break;
   }
 }
-setInterval( () => {console.log("Online: " + !stopped)}, 10000)
+setInterval(() => { console.log("Online: " + !stopped) }, 10000)
