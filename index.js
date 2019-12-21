@@ -13,6 +13,7 @@ client.on('message', message => {
   let audio = message.guild.roles.find(r => r.name === "Audio");
   let admin = message.guild.roles.find(r => r.name === "admin");
   let writer = message.guild.roles.find(r => r.name === "Writer");
+  let botOp = message.guild.roles.find(r => r.name === "Bot Operator");
   if (!stopped) {
     if (message.content == "!add programmer") {
       let member = message.member;
@@ -52,7 +53,7 @@ client.on('message', message => {
     }
     if (message.content == "!stop") {
       stopped = true;
-      message.channel.send("MY BATTERY IS LOW AND IT'S GETTING DARK")
+      message.channel.send("MY BATTERY IS LOW AND IT'S GETTING DARK @Bot Operator ");
     }
     if (message.content == "!add writer") {
       let member = message.member;
@@ -98,7 +99,7 @@ client.on('message', message => {
       message.channel.send(message.content.slice(7))
       message.channel.send(message.content.slice(7))
     }
-    if (message.content.startsWith("!cleanup ")) {
+    if (message.content.startsWith("!cleanup ") && message.member.hasRole(botOp)) {
       try {
         for (let i = 0; i < +message.content.slice(8); i++) {
           message.channel.fetchMessages({ limit: +message.content.slice(7) }).then(messages => {
@@ -109,6 +110,8 @@ client.on('message', message => {
       } catch {
         message.channel.send("nope");
       }
+    } else if (message.content.startsWith("!cleanup ")) {
+      message.channel.send("You're not my dad!");
     }
     if (message.content.startsWith("!say ")) {
       message.delete(1000);
