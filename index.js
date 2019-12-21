@@ -51,7 +51,7 @@ client.on('message', message => {
     if (message.content.toLowerCase().includes("creeper")) {
       message.channel.send("AWWWWWWWWW MAN");
     }
-    if (message.content == "!stop") {
+    if (message.content == "!kill") {
       stopped = true;
       message.channel.send("MY BATTERY IS LOW AND IT'S GETTING DARK @Bot Operator ");
     }
@@ -99,7 +99,7 @@ client.on('message', message => {
       message.channel.send(message.content.slice(7))
       message.channel.send(message.content.slice(7))
     }
-    if (message.content.startsWith("!cleanup ") && message.member.hasRole(botOp)) {
+    if (message.content.startsWith("!cleanup ") && message.member.roles.find(r => r.name === "Bot Operator")) {
       try {
         for (let i = 0; i < +message.content.slice(8); i++) {
           message.channel.fetchMessages({ limit: +message.content.slice(7) }).then(messages => {
@@ -114,7 +114,7 @@ client.on('message', message => {
       message.channel.send("You're not my dad!");
     }
     if (message.content.startsWith("!say ")) {
-      if (message.member.hasRole(botOp)) {
+      if (message.member.roles.find(r => r.name === "Bot Operator")) {
         message.delete(1000);
       }
       message.channel.send(message.content.slice(4, message.content.length));
@@ -123,7 +123,7 @@ client.on('message', message => {
       let spell = message.content.slice(6);
       message.channel.send("You cast " + spell + "! It was " + randomEffect());
     }
-  } else if (message.content == "!start") {
+  } else if (message.content == "!revive") {
     stopped = false;
     message.channel.send("Back up and at em!")
   }
@@ -202,4 +202,4 @@ function randomEffect() {
       break;
   }
 }
-setInterval(() => { console.log("Online: " + !stopped) }, 10000)
+setInterval(() => { console.log("Online: " + !stopped) }, 1000)
