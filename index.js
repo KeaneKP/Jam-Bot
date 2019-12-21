@@ -110,7 +110,7 @@ client.on('message', message => {
       } catch {
         message.channel.send("nope");
       }
-    } else if (message.content.startsWith("!cleanup ")) {
+    } else if (message.content.startsWith("!cleanup " && !message.member.roles.find(r => r.name === "Bot Operator"))) {
       message.channel.send("You're not my dad!");
     }
     if (message.content.startsWith("!say ")) {
