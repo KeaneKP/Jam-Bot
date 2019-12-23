@@ -13,7 +13,7 @@ client.on('message', message => {
   let audio = message.guild.roles.find(r => r.name === "Audio");
   let admin = message.guild.roles.find(r => r.name === "admin");
   let writer = message.guild.roles.find(r => r.name === "Writer");
-  let botOp = message.guild.roles.find(r => r.name === "Bot Operator");
+  //let botOp = message.guild.roles.find(r => r.name === "Bot Operator");
   if (!stopped) {
     if (message.content == "!add programmer") {
       let member = message.member;
@@ -110,7 +110,7 @@ client.on('message', message => {
       } catch {
         message.channel.send("nope");
       }
-    } else if (message.content.startsWith("!cleanup " && !message.member.roles.has(botOP))) {
+    } else if (message.content.startsWith("!cleanup " && !message.member.roles.has(message.guild.roles.find(r => r.name === "Bot Operator")))) {
       message.channel.send("You're not my dad!");
     }
     if (message.content.startsWith("!say ")) {
