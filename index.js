@@ -68,7 +68,7 @@ client.on('message', message => {
 
     if (message.content.toLowerCase().startsWith("!sacrifice ")) {
       message.channel.send("You have sacrificed " + message.content.slice(11) + sacrificeOutcome())
-    } else if (message.content.toLowerCase().includes("x") && message.member.toString() != "<@651610055816380442>" && message.channel == "botavis-use") {
+    } else if (message.content.toLowerCase().includes("x") && message.member.toString() != "<@651610055816380442>" && message.channel.name == "botavis-use") {
       message.channel.send(message.member.toString() + "  YOU HAVE ANGERED THE SPIRITS! Quick! use !sacrifice *sacrifice* to please them again!");
     }
     if (message.content == "Is plague a female") {
@@ -110,7 +110,7 @@ client.on('message', message => {
       } catch {
         message.channel.send("nope");
       }
-    } else if (message.content.startsWith("!cleanup " && !message.member.roles.find(r => r.name === "Bot Operator"))) {
+    } else if (message.content.startsWith("!cleanup " && !message.member.roles.has(botOP))) {
       message.channel.send("You're not my dad!");
     }
     if (message.content.startsWith("!say ")) {
@@ -130,7 +130,7 @@ client.on('message', message => {
 })
 // General = <#600373758221484054>
 client.on('guildMemberAdd', member => {
-  let channel = member.guild.channels.find(r => r.name === "general");
+  let channel = member.guild.channels.find(r => r.name === "introductions");
   channel.fetchMessages({ limit: 1 }).then(messages => {
     let message = messages.first();
     message.react('👋');
