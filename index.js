@@ -15,7 +15,8 @@ client.on('message', message => {
   let writer = message.guild.roles.find(r => r.name === "Writer");
   let french = message.guild.roles.find(r => r.name === "Français");
   let spanish = message.guild.roles.find(r => r.name === "Español");
-  let engish = message.guild.roles.find(r => r.name === "English");
+  let english = message.guild.roles.find(r => r.name === "English");
+  let german = message.guild.roles.find(r => r.name === "Deutsch"); 
   //let botOp = message.guild.roles.find(r => r.name === "Bot Operator");
   if (!stopped) {
     if (message.content.toLowerCase().startsWith("!welcome")) {
@@ -71,6 +72,16 @@ client.on('message', message => {
       let member = message.member;
       member.removeRole(english).catch(console.error);
       message.channel.send("The English role has been removed");
+    }
+    if (message.content.toLowerCase() == "!add Deutsch" || message.content.toLowerCase() == "!add Deutsch") {
+      let member = message.member;
+      member.addRole(german).catch(console.error);
+      message.channel.send("The Deutsch role has been added");
+    }
+    if (message.content.toLowerCase() == "!remove Deutsch" || message.content.toLowerCase() == "!remove Deutsch") {
+      let member = message.member;
+      member.removeRole(german).catch(console.error);
+      message.channel.send("The Deutsch role has been removed");
     }
     if (message.content == "!remove artist") {
       let member = message.member;
