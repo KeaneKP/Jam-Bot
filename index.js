@@ -13,8 +13,15 @@ client.on('message', message => {
   let audio = message.guild.roles.find(r => r.name === "Audio");
   let admin = message.guild.roles.find(r => r.name === "admin");
   let writer = message.guild.roles.find(r => r.name === "Writer");
+  let french = message.guild.roles.find(r => r.name === "Français");
+  let spanish = message.guild.roles.find(r => r.name === "Español");
+  let engish = message.guild.roles.find(r => r.name === "English");
   //let botOp = message.guild.roles.find(r => r.name === "Bot Operator");
   if (!stopped) {
+    if (message.content.toLowerCase().startsWith("!welcome")) {
+      let member = message.content.slice(8);
+      message.channel.send("Welcome "+ member +", please introduce yourself! \nMake sure to check out #info-and-announcements and share anything you've worked on in #share-your-work \nHope you enjoy your stay here and we're looking forward to getting to know you! :ayo: :clap:")
+    }
     if (message.content == "!add programmer") {
       let member = message.member;
       member.addRole(programmer).catch(console.error);
@@ -34,6 +41,36 @@ client.on('message', message => {
       let member = message.member;
       member.addRole(audio).catch(console.error);
       message.channel.send("The audio role has been added");
+    }
+    if (message.content.toLowerCase() == "!add français" || message.content.toLowerCase() == "!add francais") {
+      let member = message.member;
+      member.addRole(french).catch(console.error);
+      message.channel.send("The Français role has been added");
+    }
+    if (message.content.toLowerCase() == "!remove français" || message.content.toLowerCase() == "!remove francais") {
+      let member = message.member;
+      member.removeRole(french).catch(console.error);
+      message.channel.send("The Français role has been removed");
+    }
+    if (message.content.toLowerCase() == "!add español" || message.content.toLowerCase() == "!add espanol") {
+      let member = message.member;
+      member.addRole(spanish).catch(console.error);
+      message.channel.send("The Español role has been added");
+    }
+    if (message.content.toLowerCase() == "!remove español" || message.content.toLowerCase() == "!remove espanol") {
+      let member = message.member;
+      member.removeRole(spanish).catch(console.error);
+      message.channel.send("The Español role has been removed");
+    }
+    if (message.content.toLowerCase() == "!add english" || message.content.toLowerCase() == "!add english") {
+      let member = message.member;
+      member.addRole(english).catch(console.error);
+      message.channel.send("The English role has been added");
+    }
+    if (message.content.toLowerCase() == "!remove english" || message.content.toLowerCase() == "!remove english") {
+      let member = message.member;
+      member.removeRole(english).catch(console.error);
+      message.channel.send("The English role has been removed");
     }
     if (message.content == "!remove artist") {
       let member = message.member;
