@@ -20,7 +20,7 @@ client.on('message', message => {
   if (!stopped) {
     if (message.content.toLowerCase().startsWith("!welcome")) {
       let member = message.content.slice(8);
-      message.channel.send("Welcome "+ member +", please introduce yourself! \nMake sure to check out #info-and-announcements and share anything you've worked on in #share-your-work \nHope you enjoy your stay here and we're looking forward to getting to know you! :ayo: :clap:")
+      message.channel.send("Welcome "+ member +", please introduce yourself! \nMake sure to check out <#600374182957809664> and share anything you've worked on in <#600373949267705871> \nHope you enjoy your stay here and we're looking forward to getting to know you! <:ayo:652378615924916304> :clap:")
     }
     if (message.content == "!add programmer") {
       let member = message.member;
