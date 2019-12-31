@@ -73,12 +73,12 @@ client.on('message', message => {
       member.removeRole(english).catch(console.error);
       message.channel.send("The English role has been removed");
     }
-    if (message.content.toLowerCase() == "!add Deutsch" || message.content.toLowerCase() == "!add Deutsch") {
+    if (message.content.toLowerCase() == "!add deutsch" || message.content.toLowerCase() == "!add deutsch") {
       let member = message.member;
       member.addRole(german).catch(console.error);
       message.channel.send("The Deutsch role has been added");
     }
-    if (message.content.toLowerCase() == "!remove Deutsch" || message.content.toLowerCase() == "!remove Deutsch") {
+    if (message.content.toLowerCase() == "!remove deutsch" || message.content.toLowerCase() == "!remove deutsch") {
       let member = message.member;
       member.removeRole(german).catch(console.error);
       message.channel.send("The Deutsch role has been removed");
