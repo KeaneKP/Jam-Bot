@@ -19,13 +19,13 @@ client.on('message', message => {
   let german = message.guild.roles.find(r => r.name === "Deutsch"); 
   //let botOp = message.guild.roles.find(r => r.name === "Bot Operator");
   if (!stopped) {
-    if (message.channel.name=="Introductions") {
+    if (message.channel.name=="introductions") {
       introMessages++;
       if (introMessages==20) {
-        message.channel.send("Hey guys! You seem to have sent a lot of messages since the last person joined, perhaps move to another channel? This is an automated message and just a suggestion, so don't take it personally.")
+        message.channel.send("Hey guys! You seem to have sent a lot of messages since the last person joined, perhaps move to <#600373758221484054> or a different channel? This is an automated message and just a suggestion, so don't take it personally.")
       }
     }
-    if (message.content.toLowerCase().startsWith("!welcome")) {
+    if (message.content.toLowerCase().startsWith("!welcome") && message.channel.name=="Introductions") {
       let member = message.content.slice(8);
       message.channel.send("Welcome "+ member +", please introduce yourself! \nMake sure to check out <#600374182957809664> and share anything you've worked on in <#600373949267705871> \nHope you enjoy your stay here and we're looking forward to getting to know you! <:ayo:652378615924916304> :clap:")
     }
@@ -107,7 +107,9 @@ client.on('message', message => {
     }
     if (message.content == "!kill") {
       stopped = true;
-      message.channel.send("MY BATTERY IS LOW AND IT'S GETTING DARK @Bot Operator ");
+      message.channel.send("MY BATTERY IS LOW AND IT'S GETTING DARK <@&657681013882880000>");
+      message.channel.send("<@&657681013882880000>");
+      message.channel.send("<@&657681013882880000>");
     }
     if (message.content == "!add writer") {
       let member = message.member;
