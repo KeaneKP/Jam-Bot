@@ -6,7 +6,7 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
 });
-
+let introMessages = 0;
 client.on('message', message => {
   let programmer = message.guild.roles.find(r => r.name === "Programmer");
   let artist = message.guild.roles.find(r => r.name === "Artist");
@@ -19,6 +19,12 @@ client.on('message', message => {
   let german = message.guild.roles.find(r => r.name === "Deutsch"); 
   //let botOp = message.guild.roles.find(r => r.name === "Bot Operator");
   if (!stopped) {
+    if (message.channel.name=="Introductions") {
+      introMessages++;
+      if (introMessages==20) {
+        message.channel.send("Hey guys! You seem to have sent a lot of messages since the last person joined, perhaps move to another channel? This is an automated message and just a suggestion, so don't take it personally.")
+      }
+    }
     if (message.content.toLowerCase().startsWith("!welcome")) {
       let member = message.content.slice(8);
       message.channel.send("Welcome "+ member +", please introduce yourself! \nMake sure to check out <#600374182957809664> and share anything you've worked on in <#600373949267705871> \nHope you enjoy your stay here and we're looking forward to getting to know you! <:ayo:652378615924916304> :clap:")
@@ -178,6 +184,7 @@ client.on('message', message => {
 })
 // General = <#600373758221484054>
 client.on('guildMemberAdd', member => {
+  introMessages=0;
   let channel = member.guild.channels.find(r => r.name === "introductions");
   channel.fetchMessages({ limit: 1 }).then(messages => {
     let message = messages.first();
