@@ -108,8 +108,6 @@ client.on('message', message => {
     if (message.content == "!kill") {
       stopped = true;
       message.channel.send("MY BATTERY IS LOW AND IT'S GETTING DARK <@&657681013882880000>");
-      message.channel.send("<@&657681013882880000>");
-      message.channel.send("<@&657681013882880000>");
     }
     if (message.content == "!add writer") {
       let member = message.member;
