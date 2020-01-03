@@ -17,6 +17,7 @@ client.on('message', message => {
   let spanish = message.guild.roles.find(r => r.name === "Español");
   let english = message.guild.roles.find(r => r.name === "English");
   let german = message.guild.roles.find(r => r.name === "Deutsch"); 
+  let rp = message.guild.roles.find(r => r.name === "Roleplay"); 
   //let botOp = message.guild.roles.find(r => r.name === "Bot Operator");
   if (!stopped && message.member.toString() != "<@651610055816380442>") {
     if (message.channel.name=="introductions") {
@@ -38,6 +39,16 @@ client.on('message', message => {
       let member = message.member;
       member.removeRole(programmer).catch(console.error);
       message.channel.send("The programmer role has been removed");
+    }
+    if (message.content == "!add roleplay") {
+      let member = message.member;
+      member.addRole(rp).catch(console.error);
+      message.channel.send("The roleplay role has been added");
+    }
+    if (message.content == "!remove roleplay") {
+      let member = message.member;
+      member.removeRole(rp).catch(console.error);
+      message.channel.send("The roleplay role has been removed");
     }
     if (message.content == "!add artist") {
       let member = message.member;
