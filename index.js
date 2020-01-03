@@ -16,19 +16,19 @@ client.on('message', message => {
   let french = message.guild.roles.find(r => r.name === "Français");
   let spanish = message.guild.roles.find(r => r.name === "Español");
   let english = message.guild.roles.find(r => r.name === "English");
-  let german = message.guild.roles.find(r => r.name === "Deutsch"); 
-  let rp = message.guild.roles.find(r => r.name === "Roleplay"); 
+  let german = message.guild.roles.find(r => r.name === "Deutsch");
+  let rp = message.guild.roles.find(r => r.name === "Roleplay");
   //let botOp = message.guild.roles.find(r => r.name === "Bot Operator");
   if (!stopped && message.member.toString() != "<@651610055816380442>") {
-    if (message.channel.name=="introductions") {
+    if (message.channel.name == "introductions") {
       introMessages++;
-      if (introMessages==20) {
+      if (introMessages == 20) {
         message.channel.send("Hey guys! You seem to have sent a lot of messages since the last person joined, perhaps move to <#600373758221484054> or a different channel? This is an automated message and just a suggestion, so don't take it personally.")
       }
     }
-    if (message.content.toLowerCase().startsWith("!welcome") && message.channel.name=="introductions") {
+    if (message.content.toLowerCase().startsWith("!welcome") && message.channel.name == "introductions") {
       let member = message.content.slice(8);
-      message.channel.send("Welcome "+ member +", please introduce yourself! \nMake sure to check out <#600374182957809664> and share anything you've worked on in <#600373949267705871> \nHope you enjoy your stay here and we're looking forward to getting to know you! <:ayo:652378615924916304> :clap:")
+      message.channel.send("Welcome " + member + ", please introduce yourself! \nMake sure to check out <#600374182957809664> and share anything you've worked on in <#600373949267705871> \nHope you enjoy your stay here and we're looking forward to getting to know you! <:ayo:652378615924916304> :clap:")
     }
     if (message.content == "!add programmer") {
       let member = message.member;
@@ -178,10 +178,8 @@ client.on('message', message => {
     } else if (message.content.startsWith("!cleanup " && !message.member.roles.has(message.guild.roles.find(r => r.name === "Bot Operator")))) {
       message.channel.send("You're not my dad!");
     }
-    if (message.content.startsWith("!say ")) {
-      if (message.member.roles.find(r => r.name === "Bot Operator")) {
-        message.delete(1000);
-      }
+    if (message.content.startsWith("!say ") && message.member.roles.find(r => r.name === "Bot Operator")) {
+      message.delete(1000);
       message.channel.send(message.content.slice(4, message.content.length));
     }
     if (message.content.startsWith("!cast ")) {
@@ -195,7 +193,7 @@ client.on('message', message => {
 })
 // General = <#600373758221484054>
 client.on('guildMemberAdd', member => {
-  introMessages=0;
+  introMessages = 0;
   let channel = member.guild.channels.find(r => r.name === "introductions");
   channel.fetchMessages({ limit: 1 }).then(messages => {
     let message = messages.first();
