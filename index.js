@@ -264,6 +264,11 @@ function randomEffect() {
     case 13:
       return "very effective"
       break;
+    case 14:
+      return "Subrscribe to Pewdiepie"
+      break;
+    
   }
 }
 setInterval(() => { console.log("Online: " + !stopped) }, 1000)
+
