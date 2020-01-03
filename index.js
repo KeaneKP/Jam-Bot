@@ -18,7 +18,7 @@ client.on('message', message => {
   let english = message.guild.roles.find(r => r.name === "English");
   let german = message.guild.roles.find(r => r.name === "Deutsch"); 
   //let botOp = message.guild.roles.find(r => r.name === "Bot Operator");
-  if (!stopped) {
+  if (!stopped && message.member.toString() != "<@651610055816380442>") {
     if (message.channel.name=="introductions") {
       introMessages++;
       if (introMessages==20) {
