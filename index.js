@@ -26,6 +26,10 @@ client.on('message', message => {
         message.channel.send("Hey guys! You seem to have sent a lot of messages since the last person joined, perhaps move to <#600373758221484054> or a different channel? This is an automated message and just a suggestion, so don't take it personally.")
       }
     }
+    if (message.channel.name == "introductions") {
+      message.react("👍");
+      message.react("👎");
+    }
     if (message.content.toLowerCase().startsWith("!welcome") && message.channel.name == "introductions") {
       let member = message.content.slice(8);
       message.channel.send("Welcome " + member + ", please introduce yourself! \nMake sure to check out <#600374182957809664> and share anything you've worked on in <#600373949267705871> \nHope you enjoy your stay here and we're looking forward to getting to know you! <:ayo:652378615924916304> :clap:")
