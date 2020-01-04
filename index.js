@@ -30,9 +30,10 @@ client.on('message', message => {
       message.react("👍");
       message.react("👎");
     }
+    //<#662059386100776963> <#651833116998238222> <#600373758221484054> <#662315416583929866> 
     if (message.content.toLowerCase().startsWith("!welcome") && message.channel.name == "introductions") {
       let member = message.content.slice(8);
-      message.channel.send("Welcome " + member + ", please introduce yourself! \nMake sure to check out <#600374182957809664> and share anything you've worked on in <#600373949267705871> \nHope you enjoy your stay here and we're looking forward to getting to know you! <:ayo:652378615924916304> :clap:")
+      message.channel.send("-Welcome @user!\n-Check out <#662059386100776963>\n-Assign roles in <#651833116998238222>\n-Chat in <#600373758221484054>\n-Show off your work in <#662315416583929866> \n-*HAVE FUN!*")
     }
     if (message.content == "!add programmer") {
       let member = message.member;
