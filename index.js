@@ -26,7 +26,7 @@ client.on('message', message => {
         message.channel.send("Hey guys! You seem to have sent a lot of messages since the last person joined, perhaps move to <#600373758221484054> or a different channel? This is an automated message and just a suggestion, so don't take it personally.")
       }
     }
-    if (message.channel.name == "suggestions") {
+    if (message.channel.name == "server-suggestions") {
       message.react("👍");
       message.react("👎");
     }
