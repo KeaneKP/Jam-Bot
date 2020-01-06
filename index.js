@@ -257,34 +257,34 @@ function countRoles(value, key, map) {
 
   statCounter.members += 1;
 
-  if (value.roles.has(statRoles[0]).id) {
+  if (value.roles.has(statRoles[0].id)) {
     statCounter.audio += 1;
   }
-  if (value.roles.has(statRoles[1]).id) {
+  if (value.roles.has(statRoles[1].id)) {
     statCounter.artist += 1;
   }
-  if (value.roles.has(statRoles[2]).id) {
+  if (value.roles.has(statRoles[2].id)) {
     statCounter.programmer += 1;
   }
-  if (value.roles.has(statRoles[3]).id) {
+  if (value.roles.has(statRoles[3].id)) {
     statCounter.writer += 1;
   }
-  if (value.roles.has(statRoles[4]).id) {
+  if (value.roles.has(statRoles[4].id)) {
     statCounter.mod += 1;
   }
-  if (value.roles.has(statRoles[5]).id) {
+  if (value.roles.has(statRoles[5].id)) {
     statCounter.french += 1;
   }
-  if (value.roles.has(statRoles[6]).id) {
+  if (value.roles.has(statRoles[6].id)) {
     statCounter.spanish += 1;
   }
-  if (value.roles.has(statRoles[7]).id) {
+  if (value.roles.has(statRoles[7].id)) {
     statCounter.english += 1;
   }
-  if (value.roles.has(statRoles[8]).id) {
+  if (value.roles.has(statRoles[8].id)) {
     statCounter.german += 1;
   }
-  if (value.roles.has(statRoles[9]).id) {
+  if (value.roles.has(statRoles[9].id)) {
     statCounter.rp += 1;
   }
 }
