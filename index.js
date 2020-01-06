@@ -12,6 +12,7 @@ client.on('message', message => {
   let artist = message.guild.roles.find(r => r.name === "Artist");
   let audio = message.guild.roles.find(r => r.name === "Audio");
   let admin = message.guild.roles.find(r => r.name === "admin");
+  let mod = message.guild.roles.find(r => r.name === "Moderator");
   let writer = message.guild.roles.find(r => r.name === "Writer");
   let french = message.guild.roles.find(r => r.name === "Français");
   let spanish = message.guild.roles.find(r => r.name === "Español");
@@ -19,6 +20,10 @@ client.on('message', message => {
   let german = message.guild.roles.find(r => r.name === "Deutsch");
   let rp = message.guild.roles.find(r => r.name === "Roleplay");
   //let botOp = message.guild.roles.find(r => r.name === "Bot Operator");
+
+  // New helper array to pass through the role ids to the stat objects
+  let statRoles = [audio, artist, programmer, writer, mod, french, spanish, english, german, rp];
+
   if (!stopped && message.member.toString() != "<@651610055816380442>") {
     if (message.channel.name == "introductions") {
       introMessages++;
@@ -30,11 +35,11 @@ client.on('message', message => {
       message.react("👍");
       message.react("👎");
     }
-    //<#662059386100776963> <#651833116998238222> <#600373758221484054> <#662315416583929866> 
+    //<#662059386100776963> <#651833116998238222> <#600373758221484054> <#662315416583929866>
     if (message.content.toLowerCase().startsWith("!welcome") && message.channel.name == "introductions") {
       let member = message.content.slice(8);
       message.channel.send("Welcome  "+ member +", please introduce yourself! Make sure to check out <#662059386100776963>, assign yourself some roles in <#651833116998238222> and share anything you've worked on in <#662315416583929866> We hope you enjoy your stay here and we're looking forward to getting to know you!" )
-      
+
       //-Welcome "+member+"!\n-Check out <#662059386100776963>\n-Assign roles in <#651833116998238222>\n-Chat in <#600373758221484054>\n-Show off your work in <#662315416583929866> \n-*HAVE FUN!*")
     }
     if (message.content == "!add programmer") {
@@ -137,6 +142,45 @@ client.on('message', message => {
       member.removeRole(writer).catch(console.error);
       message.channel.send("The writer role has been removed");
     }
+    if (message.content == "!stats") {
+      let member = message.member;
+
+        // Compile a quick statistic by iterating over all members and
+        // increasing the respective role counter if user has the role
+
+        // [audio, artist, programmer, writer, mod, french, spanish, english, german, rp]
+        let statCounter = {
+            members: 0,
+            audio: 0,
+            artist: 0,
+            programmer: 0,
+            writer: 0,
+            mod: 0,
+            french: 0,
+            spanish: 0,
+            english: 0,
+            german: 0,
+            rp: 0
+        };
+
+        // Iterate over all members
+        member.guild.members.forEach(countRoles, [statCounter, statRoles]);
+
+        // Print out the stats
+        message.channel.send(
+            "**Server Stats:**\n\nMembers: " + statCounter.members +
+            "\nAudio Folks: " + statCounter.audio +
+            "\nArtists: " + statCounter.artist +
+            "\nProgrammers: " + statCounter.programmer +
+            "\nWriters: " + statCounter.writer +
+            "\nModerators: " + statCounter.mod +
+            "\nFrench: " + statCounter.french +
+            "\nSpanish: " + statCounter.spanish +
+            "\nEnglish: " + statCounter.english +
+            "\nGerman: " + statCounter.german +
+            "\nRoleplayers: " + statCounter.rp
+        );
+    }
 
     if (message.content.toLowerCase().startsWith("!sacrifice ")) {
       message.channel.send("You have sacrificed " + message.content.slice(11) + sacrificeOutcome())
@@ -209,6 +253,45 @@ client.on('guildMemberAdd', member => {
 });
 client.login(process.env.token);
 
+// [audio, artist, programmer, writer, mod, french, spanish, english, german, rp]
+function countRoles(value, key, map) {
+  let statCounter = this[0];
+  let statRoles = this[1];
+
+  statCounter.members += 1;
+
+  if (value.roles.has(statRoles[0])) {
+    statCounter.audio += 1;
+  }
+  if (value.roles.has(statRoles[1])) {
+    statCounter.artist += 1;
+  }
+  if (value.roles.has(statRoles[2])) {
+    statCounter.programmer += 1;
+  }
+  if (value.roles.has(statRoles[3])) {
+    statCounter.writer += 1;
+  }
+  if (value.roles.has(statRoles[4])) {
+    statCounter.mod += 1;
+  }
+  if (value.roles.has(statRoles[5])) {
+    statCounter.french += 1;
+  }
+  if (value.roles.has(statRoles[6])) {
+    statCounter.spanish += 1;
+  }
+  if (value.roles.has(statRoles[7])) {
+    statCounter.english += 1;
+  }
+  if (value.roles.has(statRoles[8])) {
+    statCounter.german += 1;
+  }
+  if (value.roles.has(statRoles[9])) {
+    statCounter.rp += 1;
+  }
+}
+
 function sacrificeOutcome() {
   x = Math.floor(Math.random() * 4);
   switch (x) {
@@ -274,7 +357,7 @@ function randomEffect() {
     case 14:
       return "Subrscribe to Pewdiepie"
       break;
-    
+
   }
 }
 setInterval(() => { console.log("Online: " + !stopped) }, 1000)
