@@ -160,7 +160,8 @@ client.on('message', message => {
             spanish: 0,
             english: 0,
             german: 0,
-            rp: 0
+            rp: 0,
+			none: 0
         };
 
         // Iterate over all members
@@ -178,7 +179,8 @@ client.on('message', message => {
             "\nSpanish: " + statCounter.spanish +
             "\nEnglish: " + statCounter.english +
             "\nGerman: " + statCounter.german +
-            "\nRoleplayers: " + statCounter.rp
+            "\nRoleplayers: " + statCounter.rp +
+			"\nWithout a role: " + statCounter.none
         );
     }
 
@@ -254,39 +256,51 @@ client.login(process.env.token);
 function countRoles(value, key, map) {
   let statCounter = this[0];
   let statRoles = this[1];
+  let noRoleFlag = 1;
 
   statCounter.members += 1;
 
   if (value.roles.has(statRoles[0].id)) {
     statCounter.audio += 1;
+	noRoleFlag = 0;
   }
   if (value.roles.has(statRoles[1].id)) {
     statCounter.artist += 1;
+	noRoleFlag = 0;
   }
   if (value.roles.has(statRoles[2].id)) {
     statCounter.programmer += 1;
+	noRoleFlag = 0;
   }
   if (value.roles.has(statRoles[3].id)) {
     statCounter.writer += 1;
+	noRoleFlag = 0;
   }
   if (value.roles.has(statRoles[4].id)) {
     statCounter.mod += 1;
+	noRoleFlag = 0;
   }
   if (value.roles.has(statRoles[5].id)) {
     statCounter.french += 1;
+	noRoleFlag = 0;
   }
   if (value.roles.has(statRoles[6].id)) {
     statCounter.spanish += 1;
+	noRoleFlag = 0;
   }
   if (value.roles.has(statRoles[7].id)) {
     statCounter.english += 1;
+	noRoleFlag = 0;
   }
   if (value.roles.has(statRoles[8].id)) {
     statCounter.german += 1;
+	noRoleFlag = 0;
   }
   if (value.roles.has(statRoles[9].id)) {
     statCounter.rp += 1;
+	noRoleFlag = 0;
   }
+  statCounter.none += noRoleFlag;
 }
 
 function sacrificeOutcome() {
