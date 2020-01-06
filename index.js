@@ -187,9 +187,6 @@ client.on('message', message => {
     } else if (message.content.toLowerCase().includes("x") && message.member.toString() != "<@651610055816380442>" && message.channel.name == "bot-use") {
       message.channel.send(message.member.toString() + "  YOU HAVE ANGERED THE SPIRITS! Quick! use !sacrifice *sacrifice* to please them again!");
     }
-    if (message.content == "Is plague a female") {
-      message.channel.send("Yes, of course.");
-    }
     if (message.content.startsWith("!roll d")) {
       if (message.content.includes("+")) {
         const mod = message.content.indexOf("+");
@@ -260,34 +257,34 @@ function countRoles(value, key, map) {
 
   statCounter.members += 1;
 
-  if (value.roles.has(statRoles[0])) {
+  if (value.roles.has(statRoles[0]).id) {
     statCounter.audio += 1;
   }
-  if (value.roles.has(statRoles[1])) {
+  if (value.roles.has(statRoles[1]).id) {
     statCounter.artist += 1;
   }
-  if (value.roles.has(statRoles[2])) {
+  if (value.roles.has(statRoles[2]).id) {
     statCounter.programmer += 1;
   }
-  if (value.roles.has(statRoles[3])) {
+  if (value.roles.has(statRoles[3]).id) {
     statCounter.writer += 1;
   }
-  if (value.roles.has(statRoles[4])) {
+  if (value.roles.has(statRoles[4]).id) {
     statCounter.mod += 1;
   }
-  if (value.roles.has(statRoles[5])) {
+  if (value.roles.has(statRoles[5]).id) {
     statCounter.french += 1;
   }
-  if (value.roles.has(statRoles[6])) {
+  if (value.roles.has(statRoles[6]).id) {
     statCounter.spanish += 1;
   }
-  if (value.roles.has(statRoles[7])) {
+  if (value.roles.has(statRoles[7]).id) {
     statCounter.english += 1;
   }
-  if (value.roles.has(statRoles[8])) {
+  if (value.roles.has(statRoles[8]).id) {
     statCounter.german += 1;
   }
-  if (value.roles.has(statRoles[9])) {
+  if (value.roles.has(statRoles[9]).id) {
     statCounter.rp += 1;
   }
 }
