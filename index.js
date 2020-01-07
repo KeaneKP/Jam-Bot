@@ -270,6 +270,9 @@ function countRoles(value, key, map) {
     noRoleFlag = 0;
   }
   statCounter.none += noRoleFlag;
+  if (noRoleFlag != 0) {
+    value.addRole(boring);
+  }
 }
 
 function sacrificeOutcome() {
