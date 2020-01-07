@@ -39,7 +39,7 @@ client.on('message', message => {
     //<#662059386100776963> <#651833116998238222> <#600373758221484054> <#662315416583929866>
     if (message.content.toLowerCase().startsWith("!welcome") && message.channel.name == "introductions") {
       let member = message.content.slice(8);
-      message.channel.send("Welcome  "+ member +", please introduce yourself! Make sure to check out <#662059386100776963>, assign yourself some roles in <#651833116998238222> and share anything you've worked on in <#662315416583929866> We hope you enjoy your stay here and we're looking forward to getting to know you!" )
+      message.channel.send("Welcome  " + member + ", please introduce yourself! Make sure to check out <#662059386100776963>, assign yourself some roles in <#651833116998238222> and share anything you've worked on in <#662315416583929866> We hope you enjoy your stay here and we're looking forward to getting to know you!")
 
       //-Welcome "+member+"!\n-Check out <#662059386100776963>\n-Assign roles in <#651833116998238222>\n-Chat in <#600373758221484054>\n-Show off your work in <#662315416583929866> \n-*HAVE FUN!*")
     }
@@ -114,43 +114,43 @@ client.on('message', message => {
     if (message.content == "!stats") {
       let member = message.member;
 
-        // Compile a quick statistic by iterating over all members and
-        // increasing the respective role counter if user has the role
+      // Compile a quick statistic by iterating over all members and
+      // increasing the respective role counter if user has the role
 
-        // [audio, artist, programmer, writer, mod, french, spanish, english, german, rp]
-        let statCounter = {
-            members: 0,
-            audio: 0,
-            artist: 0,
-            programmer: 0,
-            writer: 0,
-            mod: 0,
-            french: 0,
-            spanish: 0,
-            english: 0,
-            german: 0,
-            rp: 0,
-			none: 0
-        };
+      // [audio, artist, programmer, writer, mod, french, spanish, english, german, rp]
+      let statCounter = {
+        members: 0,
+        audio: 0,
+        artist: 0,
+        programmer: 0,
+        writer: 0,
+        mod: 0,
+        french: 0,
+        spanish: 0,
+        english: 0,
+        german: 0,
+        rp: 0,
+        none: 0
+      };
 
-        // Iterate over all members
-        member.guild.members.forEach(countRoles, [statCounter, statRoles]);
+      // Iterate over all members
+      member.guild.members.forEach(countRoles, [statCounter, statRoles]);
 
-        // Print out the stats
-        message.channel.send(
-            "**Server Stats:**\n\nMembers: " + statCounter.members +
-            "\nAudio Folks: " + statCounter.audio +
-            "\nArtists: " + statCounter.artist +
-            "\nProgrammers: " + statCounter.programmer +
-            "\nWriters: " + statCounter.writer +
-            "\nModerators: " + statCounter.mod +
-            "\nFrench: " + statCounter.french +
-            "\nSpanish: " + statCounter.spanish +
-            "\nEnglish: " + statCounter.english +
-            "\nGerman: " + statCounter.german +
-            "\nRoleplayers: " + statCounter.rp +
-			"\nWithout a role: " + statCounter.none
-        );
+      // Print out the stats
+      message.channel.send(
+        "**Server Stats:**\n\nMembers: " + statCounter.members +
+        "\nAudio Folks: " + statCounter.audio +
+        "\nArtists: " + statCounter.artist +
+        "\nProgrammers: " + statCounter.programmer +
+        "\nWriters: " + statCounter.writer +
+        "\nModerators: " + statCounter.mod +
+        "\nFrench: " + statCounter.french +
+        "\nSpanish: " + statCounter.spanish +
+        "\nEnglish: " + statCounter.english +
+        "\nGerman: " + statCounter.german +
+        "\nRoleplayers: " + statCounter.rp +
+        "\nWithout a role: " + statCounter.none
+      );
     }
 
     if (message.content.toLowerCase().startsWith("!sacrifice ")) {
@@ -231,43 +231,43 @@ function countRoles(value, key, map) {
 
   if (value.roles.has(statRoles[0].id)) {
     statCounter.audio += 1;
-	noRoleFlag = 0;
+    noRoleFlag = 0;
   }
   if (value.roles.has(statRoles[1].id)) {
     statCounter.artist += 1;
-	noRoleFlag = 0;
+    noRoleFlag = 0;
   }
   if (value.roles.has(statRoles[2].id)) {
     statCounter.programmer += 1;
-	noRoleFlag = 0;
+    noRoleFlag = 0;
   }
   if (value.roles.has(statRoles[3].id)) {
     statCounter.writer += 1;
-	noRoleFlag = 0;
+    noRoleFlag = 0;
   }
   if (value.roles.has(statRoles[4].id)) {
     statCounter.mod += 1;
-	noRoleFlag = 0;
+    noRoleFlag = 0;
   }
   if (value.roles.has(statRoles[5].id)) {
     statCounter.french += 1;
-	noRoleFlag = 0;
+    noRoleFlag = 0;
   }
   if (value.roles.has(statRoles[6].id)) {
     statCounter.spanish += 1;
-	noRoleFlag = 0;
+    noRoleFlag = 0;
   }
   if (value.roles.has(statRoles[7].id)) {
     statCounter.english += 1;
-	noRoleFlag = 0;
+    noRoleFlag = 0;
   }
   if (value.roles.has(statRoles[8].id)) {
     statCounter.german += 1;
-	noRoleFlag = 0;
+    noRoleFlag = 0;
   }
   if (value.roles.has(statRoles[9].id)) {
     statCounter.rp += 1;
-	noRoleFlag = 0;
+    noRoleFlag = 0;
   }
   statCounter.none += noRoleFlag;
 }
@@ -343,16 +343,19 @@ function randomEffect() {
 const add = (role, textRole, message) => {
   let member = message.member;
   member.addRole(role).catch(console.error);
-  message.channel.send("The "+ textRole+ " role has been added");
-  member.removeRole(boring).catch(console.error);
+  message.channel.send("The " + textRole + " role has been added");
+  if (message.member.roles.find(r => r.name === "booring")) {
+    member.removeRole(boring).catch(console.error);
+  }
   if (message.channel.name != "bot-use") {
     message.channel.send("Try using commands in <#651833116998238222>")
   }
 }
 const remove = (role, textRole, message) => {
   let member = message.member;
+
   member.removeRole(role).catch(console.error);
-  message.channel.send("The "+ textRole+ " role has been removed");
+  message.channel.send("The " + textRole + " role has been removed");
   if (message.channel.name != "bot-use") {
     message.channel.send("Try using commands in <#651833116998238222>")
   }
