@@ -19,6 +19,7 @@ client.on('message', message => {
   let english = message.guild.roles.find(r => r.name === "English");
   let german = message.guild.roles.find(r => r.name === "Deutsch");
   let rp = message.guild.roles.find(r => r.name === "Roleplay");
+  let boring = message.guild.roles.find(r => r.name === "booring");
   //let botOp = message.guild.roles.find(r => r.name === "Bot Operator");
 
   // New helper array to pass through the role ids to the stat objects
@@ -43,84 +44,52 @@ client.on('message', message => {
       //-Welcome "+member+"!\n-Check out <#662059386100776963>\n-Assign roles in <#651833116998238222>\n-Chat in <#600373758221484054>\n-Show off your work in <#662315416583929866> \n-*HAVE FUN!*")
     }
     if (message.content == "!add programmer") {
-      let member = message.member;
-      member.addRole(programmer).catch(console.error);
-      message.channel.send("The programmer role has been added");
+      add(programmer, "programmer", message)
     }
     if (message.content == "!remove programmer") {
-      let member = message.member;
-      member.removeRole(programmer).catch(console.error);
-      message.channel.send("The programmer role has been removed");
+      remove(programmer, "programmer", message)
     }
     if (message.content == "!add roleplay") {
-      let member = message.member;
-      member.addRole(rp).catch(console.error);
-      message.channel.send("The roleplay role has been added");
+      add(rp, "roleplay", message)
     }
     if (message.content == "!remove roleplay") {
-      let member = message.member;
-      member.removeRole(rp).catch(console.error);
-      message.channel.send("The roleplay role has been removed");
+      remove(rp, "roleplay", message);
     }
     if (message.content == "!add artist") {
-      let member = message.member;
-      member.addRole(artist).catch(console.error);
-      message.channel.send("The artist role has been added");
+      add(artist, "artist", message)
     }
     if (message.content == "!add audio") {
-      let member = message.member;
-      member.addRole(audio).catch(console.error);
-      message.channel.send("The audio role has been added");
+      add(audio, "audio", message)
     }
     if (message.content.toLowerCase() == "!add français" || message.content.toLowerCase() == "!add francais") {
-      let member = message.member;
-      member.addRole(french).catch(console.error);
-      message.channel.send("The Français role has been added");
+      add(french, "français", message)
     }
     if (message.content.toLowerCase() == "!remove français" || message.content.toLowerCase() == "!remove francais") {
-      let member = message.member;
-      member.removeRole(french).catch(console.error);
-      message.channel.send("The Français role has been removed");
+      remove(french, "français", message)
     }
     if (message.content.toLowerCase() == "!add español" || message.content.toLowerCase() == "!add espanol") {
-      let member = message.member;
-      member.addRole(spanish).catch(console.error);
-      message.channel.send("The Español role has been added");
+      add(spanish, "español", message)
     }
     if (message.content.toLowerCase() == "!remove español" || message.content.toLowerCase() == "!remove espanol") {
-      let member = message.member;
-      member.removeRole(spanish).catch(console.error);
-      message.channel.send("The Español role has been removed");
+      remove(programmer, "español", message)
     }
     if (message.content.toLowerCase() == "!add english" || message.content.toLowerCase() == "!add english") {
-      let member = message.member;
-      member.addRole(english).catch(console.error);
-      message.channel.send("The English role has been added");
+      add(english, "english", message)
     }
     if (message.content.toLowerCase() == "!remove english" || message.content.toLowerCase() == "!remove english") {
-      let member = message.member;
-      member.removeRole(english).catch(console.error);
-      message.channel.send("The English role has been removed");
+      remove(english, "english", message)
     }
     if (message.content.toLowerCase() == "!add deutsch" || message.content.toLowerCase() == "!add deutsch") {
-      let member = message.member;
-      member.addRole(german).catch(console.error);
-      message.channel.send("The Deutsch role has been added");
+      add(german, "deutsch", message)
     }
     if (message.content.toLowerCase() == "!remove deutsch" || message.content.toLowerCase() == "!remove deutsch") {
-      let member = message.member;
-      member.removeRole(german).catch(console.error);
-      message.channel.send("The Deutsch role has been removed");
+      remove(german, "deutsch", message)
     }
     if (message.content == "!remove artist") {
-      let member = message.member;
-      member.removeRole(artist).catch(console.error);
-      message.channel.send("The artist role has been removed");
+      remove(artist, "artist", message)
     }
     if (message.content == "!remove audio") {
-      let member = message.member;
-      member.removeRole(audio).catch(console.error);
-      message.channel.send("The audio role has been removed");
+      remove(audio, "audio", message)
     }
     if (message.content.toLowerCase().includes("joe") && message.member.toString() != "<@651610055816380442>") {
       message.channel.send("JOE MAMMA");
@@ -366,9 +335,26 @@ function randomEffect() {
       return "very effective"
       break;
     case 14:
-      return "Subrscribe to Pewdiepie"
+      return "SuBsCrIbE tO PeWdIePiE"
       break;
 
+  }
+}
+const add = (role, textRole, message) => {
+  let member = message.member;
+  member.addRole(role).catch(console.error);
+  message.channel.send("The "+ textRole+ " role has been added");
+  member.removeRole(boring).catch(console.error);
+  if (message.channel.name != "bot-use") {
+    message.channel.send("Try using commands in <#651833116998238222>")
+  }
+}
+const remove = (role, textRole, message) => {
+  let member = message.member;
+  member.removeRole(role).catch(console.error);
+  message.channel.send("The "+ textRole+ " role has been removed");
+  if (message.channel.name != "bot-use") {
+    message.channel.send("Try using commands in <#651833116998238222>")
   }
 }
 setInterval(() => { console.log("Online: " + !stopped) }, 1000)
