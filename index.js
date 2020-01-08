@@ -134,7 +134,7 @@ client.on('message', message => {
       };
 
       // Iterate over all members
-      member.guild.members.forEach(countRoles, [statCounter, statRoles]);
+      member.guild.members.forEach(countRoles, [statCounter, statRoles, message]);
 
       // Print out the stats
       message.channel.send(
@@ -225,6 +225,7 @@ client.login(process.env.token);
 function countRoles(value, key, map) {
   let statCounter = this[0];
   let statRoles = this[1];
+  let message = this[2];
   let noRoleFlag = 1;
 
   statCounter.members += 1;
@@ -271,7 +272,9 @@ function countRoles(value, key, map) {
   }
   statCounter.none += noRoleFlag;
   if (noRoleFlag != 0) {
-    value.addRole(boring);
+    value.addRole(message.guild.roles.find(r => r.name === "booring"));
+  } else if (value.roles.find(r => r.name === "booring")) {
+    value.removeRole(message.guild.roles.find(r => r.name === "booring"));
   }
 }
 
