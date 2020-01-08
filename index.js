@@ -351,7 +351,7 @@ const add = (role, textRole, message) => {
   member.addRole(role).catch(console.error);
   message.channel.send("The " + textRole + " role has been added");
   if (message.member.roles.find(r => r.name === "booring")) {
-    member.removeRole(boring).catch(console.error);
+    value.removeRole(message.guild.roles.find(r => r.name === "booring"));
   }
   if (message.channel.name != "bot-use") {
     message.channel.send("Try using commands in <#651833116998238222>")
