@@ -149,7 +149,7 @@ client.on('message', message => {
             "\nSpanish: " + statCounter.spanish +
             "\nGerman: " + statCounter.german +
             "\nRoleplayers: " + statCounter.rp +
-			      "\nWithout a role: " + statCounter.none
+            "\nWithout a role: " + statCounter.none
         );
 
         message.channel.sendCode('',
