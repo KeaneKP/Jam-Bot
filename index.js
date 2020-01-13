@@ -136,21 +136,36 @@ client.on('message', message => {
       // Iterate over all members
       member.guild.members.forEach(countRoles, [statCounter, statRoles, message]);
 
-      // Print out the stats
-      message.channel.send(
-        "**Server Stats:**\n\nMembers: " + statCounter.members +
-        "\nAudio Folks: " + statCounter.audio +
-        "\nArtists: " + statCounter.artist +
-        "\nProgrammers: " + statCounter.programmer +
-        "\nWriters: " + statCounter.writer +
-        "\nModerators: " + statCounter.mod +
-        "\nFrench: " + statCounter.french +
-        "\nSpanish: " + statCounter.spanish +
-        "\nEnglish: " + statCounter.english +
-        "\nGerman: " + statCounter.german +
-        "\nRoleplayers: " + statCounter.rp +
-        "\nWithout a role: " + statCounter.none
-      );
+        // Print out the stats
+        message.channel.send(
+            "**Server Stats:**\n\nMembers: " + statCounter.members +
+            "\nAudio Folks: " + statCounter.audio +
+            "\nArtists: " + statCounter.artist +
+            "\nProgrammers: " + statCounter.programmer +
+            "\nWriters: " + statCounter.writer +
+            "\nModerators: " + statCounter.mod +
+            "\nEnglish: " + statCounter.english +
+            "\nFrench: " + statCounter.french +
+            "\nSpanish: " + statCounter.spanish +
+            "\nGerman: " + statCounter.german +
+            "\nRoleplayers: " + statCounter.rp +
+            "\nWithout a role: " + statCounter.none
+        );
+
+        message.channel.sendCode('',
+            '' + statCounter.members + ',' +
+            statCounter.audio + ',' +
+            statCounter.artist + ',' +
+            statCounter.programmer + ',' +
+            statCounter.writer + ',' +
+            statCounter.mod + ',' +
+            statCounter.english + ',' +
+            statCounter.french + ',' +
+            statCounter.spanish + ',' +
+            statCounter.german + ',' +
+            statCounter.rp + ',' +
+            statCounter.none
+        );
     }
 
     if (message.content.toLowerCase().startsWith("!sacrifice ")) {
