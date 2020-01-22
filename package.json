@@ -1,6 +1,20 @@
 {
+  "name": "Jam-Bot",
+  "version": "1.0.0",
+  "description": "",
   "main": "index.js",
+  "author": "",
+  "scripts": {
+    "start": "forever -o forever.log -e error.log start index.js",
+    "restart": "forever -o forever.log -e error.log restart index.js",
+    "stop": "forever stop index.js",
+    "node": "node index.js"
+  },
   "dependencies": {
-    "discord.js": "11.4.2"
+    "cron": "^1.8.1",
+    "discord.js": "^11.5.1",
+    "dotenv": "^8.2.0",
+    "forever": "^2.0.0",
+    "roll-parser": "^2.3.2"
   }
 }
