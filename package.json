@@ -11,7 +11,6 @@
     "node": "node index.js"
   },
   "dependencies": {
-    "cron": "^1.8.1",
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0",
     "forever": "^2.0.0",

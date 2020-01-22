@@ -12,6 +12,13 @@ let {sendPublicMessage, sendPrivateMessage, generateDialogFunction, isAdmin} = r
 //dialog system
 let dialog = generateDialogFunction(require("./dialog.json"));
 
+//variables to be used
+let messagesSinceLastJoin = 0;
+let alive = true;
+
+let adminRoles = {}; //defined below
+let validRoles = {}; //defined below
+
 //ADAM dialog decorator
 //NOTE: This isn't strictly necessary for the bots
 dialog = function(baseDialog) {
@@ -53,6 +60,30 @@ client.on('ready', async () => {
 	}
 
 	console.log("Logged in as: " + client.user.username + " - " + client.user.id);
+
+	//now that you're logged in, parse the guild
+	const jamGuild = client.guilds.find(g => g.name === "privatetestserver");
+
+	adminRoles = {
+		"admin": jamGuild.roles.find(r => r.name === process.env.ADMIN_ROLE),
+		"mod": jamGuild.roles.find(r => r.name === process.env.MOD_ROLE),
+		"botoperator": jamGuild.roles.find(r => r.name === "Bot Operator"),
+	};
+
+	validRoles = {
+		"programmer": jamGuild.roles.find(r => r.name === "Programmer"),
+		"artist": jamGuild.roles.find(r => r.name === "Artist"),
+		"audio": jamGuild.roles.find(r => r.name === "Audio"),
+		"writer": jamGuild.roles.find(r => r.name === "Writer"),
+		"roleplay": jamGuild.roles.find(r => r.name === "Roleplay"),
+
+		"français": jamGuild.roles.find(r => r.name === "Français"),
+		"francais": jamGuild.roles.find(r => r.name === "Français"),
+		"español": jamGuild.roles.find(r => r.name === "Español"),
+		"espanol": jamGuild.roles.find(r => r.name === "Español"),
+		"english": jamGuild.roles.find(r => r.name === "English"),
+		"deutsch": jamGuild.roles.find(r => r.name === "Deutsch"),
+	};
 });
 
 // Create an event listener for messages
@@ -89,31 +120,6 @@ client.on('message', async message => {
 
 //Log our bot in
 client.login(process.env.TOKEN);
-
-//variables to be used
-let messagesSinceLastJoin = 0;
-let alive = true;
-
-const adminRoles = {
-	"admin": message.guild.roles.find(r => r.name === process.env.ADMIN_ROLE),
-	"mod": message.guild.roles.find(r => r.name === process.env.MOD_ROLE),
-	"botoperator": message.guild.roles.find(r => r.name === "Bot Operator"),
-};
-
-const validRoles = {
-	"programmer": message.guild.roles.find(r => r.name === "Programmer"),
-	"artist": message.guild.roles.find(r => r.name === "Artist"),
-	"audio": message.guild.roles.find(r => r.name === "Audio"),
-	"writer": message.guild.roles.find(r => r.name === "Writer"),
-	"roleplay": message.guild.roles.find(r => r.name === "Roleplay"),
-
-	"français": message.guild.roles.find(r => r.name === "Français"),
-	"francais": message.guild.roles.find(r => r.name === "Français"),
-	"español": message.guild.roles.find(r => r.name === "Español"),
-	"espanol": message.guild.roles.find(r => r.name === "Español"),
-	"english": message.guild.roles.find(r => r.name === "English"),
-	"deutsch": message.guild.roles.find(r => r.name === "Deutsch"),
-};
 
 //each type of action the bot can take
 function passiveResponses(client, message) {
@@ -185,7 +191,7 @@ function processBasicCommands(client, message) {
 
 		case "welcome":
 			if (args[0]) {
-				sendPublicMessage(client, message.guild, message.channel, dialog(args[0]));
+				sendPublicMessage(client, message.guild, message.channel, dialog(command, args[0]));
 			}
 			return true;
 
@@ -205,30 +211,35 @@ function processBasicCommands(client, message) {
 
 		case "stats":
 			let roleCounter = {};
+			let total = 0;
 
 			//count each role instance
-			message.guild.members.forEach(user => {
+			message.guild.members.forEach(member => {
+				if (member.user.bot) return; //skip bots
+				total++;
 				let noRole = true;
-				validRoles.forEach(role => { roleCounter[role] = roleCounter[role] + 1 || 1; noRole = false; });
-				adminRoles.forEach(role => { roleCounter[role] = roleCounter[role] + 1 || 1; noRole = false; });
+				Object.values(validRoles).forEach(role => { if (member.roles.has(role.id)) { roleCounter[role.id] = roleCounter[role.id] + 1 || 1; noRole = false; }});
+				Object.values(adminRoles).forEach(role => { if (member.roles.has(role.id)) { roleCounter[role.id] = roleCounter[role.id] + 1 || 1; noRole = false; }});
 				if (noRole) roleCounter[null] = roleCounter[null] + 1 || 1;
 			});
 
 			sendPublicMessage(client, message.guild, message.channel,
 				"**Server Stats:**\n" +
-				"\nMembers: "		+ message.guild.members.length +
-				"\nProgrammers: "	+ (roleCounter[validRoles["programmer"]] || 0) +
-				"\nArtists: "		+ (roleCounter[validRoles["artist"]] || 0) +
-				"\nAudio: "			+ (roleCounter[validRoles["audio"]] || 0) +
-				"\nWriters: "		+ (roleCounter[validRoles["writer"]] || 0) +
-				"\nRoleplayers: "	+ (roleCounter[validRoles["roleplay"]] || 0) +
+				"\nMembers: "		+ total +
+				"\nProgrammers: "	+ (roleCounter[validRoles["programmer"].id] || 0) +
+				"\nArtists: "		+ (roleCounter[validRoles["artist"].id] || 0) +
+				"\nAudio: "			+ (roleCounter[validRoles["audio"].id] || 0) +
+				"\nWriters: "		+ (roleCounter[validRoles["writer"].id] || 0) +
+				"\nRoleplayers: "	+ (roleCounter[validRoles["roleplay"].id] || 0) +
 
-				"\nEnglish: "		+ (roleCounter[validRoles["english"]] || 0) +
-				"\nFrench: "		+ (roleCounter[validRoles["français"]] || 0) +
-				"\nSpanish: "		+ (roleCounter[validRoles["español"]] || 0) +
-				"\nGerman: "		+ (roleCounter[validRoles["deutsch"]] || 0) +
+				"\nEnglish: "		+ (roleCounter[validRoles["english"].id] || 0) +
+				"\nFrench: "		+ (roleCounter[validRoles["français"].id] || 0) +
+				"\nSpanish: "		+ (roleCounter[validRoles["español"].id] || 0) +
+				"\nGerman: "		+ (roleCounter[validRoles["deutsch"].id] || 0) +
 
-				"\nModerators: "	+ (roleCounter[adminRoles["mod"]] || 0) +
+				"\nAdministrators: "+ (roleCounter[adminRoles["admin"].id] || 0) +
+				"\nModerators: "	+ (roleCounter[adminRoles["mod"].id] || 0) +
+				"\nBot Operators: "	+ (roleCounter[adminRoles["botoperator"].id] || 0) +
 				"\nWithout a role: " + (roleCounter[null] || 0)
 			);
 
@@ -250,13 +261,15 @@ function processBasicCommands(client, message) {
 
 		case "summon":
 			if (args[0]) {
-				sendPublicMessage(client, message.guild, message.author, message.channel, args[0]);
+				sendPublicMessage(client, message.guild, message.channel, args[0]);
+				sendPublicMessage(client, message.guild, message.channel, args[0]);
+				sendPublicMessage(client, message.guild, message.channel, args[0]);
 			}
 			return true;
 
 		case "cast":
 			if (args[0]) {
-				sendPublicMessage(client, message.guild, message.author, message.channel, `You cast ${args[0]}! It was ${dialog('cast')}`);
+				sendPublicMessage(client, message.guild, message.author, message.channel, `You cast ${args.join(" ")}! It was ${dialog('cast')}`);
 			}
 			return true;
 
@@ -309,12 +322,12 @@ function processAdminCommands(client, message) {
 //misc. functions
 function addRole(role, message) {
 	message.member.addRole(role).catch(console.error);
-	sendPublicMessage(client, message.guild, message.author, message.channel, dialog("addrole", r.name));
+	sendPublicMessage(client, message.guild, message.author, message.channel, dialog("addrole", role.name));
 }
 
 function removeRole(role, message) {
 	message.member.removeRole(role).catch(console.error);
-	sendPublicMessage(client, message.guild, message.author, message.channel, dialog("removerole", r.name));
+	sendPublicMessage(client, message.guild, message.author, message.channel, dialog("removerole", role.name));
 }
 
 client.on('guildMemberAdd', member => {
