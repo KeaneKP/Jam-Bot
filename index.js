@@ -381,5 +381,5 @@ const remove = (role, textRole, message) => {
     message.channel.send("Try using commands in <#651833116998238222>")
   }
 }
-setInterval(() => { console.log("Online: " + !stopped) }, 1000)
+//setInterval(() => { console.log("Online: " + !stopped) }, 1000)
 
