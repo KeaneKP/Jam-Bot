@@ -234,7 +234,7 @@ client.on('guildMemberAdd', member => {
     message.react('👋');
   })
 });
-client.login(process.env.token);
+client.login(token);
 
 // [audio, artist, programmer, writer, mod, french, spanish, english, german, rp]
 function countRoles(value, key, map) {
