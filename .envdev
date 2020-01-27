@@ -1,0 +1,7 @@
+PREFIX="!"
+
+ADMIN_ROLE="admin"
+MOD_ROLE="mod"
+
+TYPE="WATCHING"
+ACTIVITY="for commands"
