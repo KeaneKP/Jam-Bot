@@ -209,7 +209,7 @@ client.on('message', message => {
       } catch {
         message.channel.send("nope");
       }
-    } else if (message.content.startsWith("!cleanup " && !message.member.roles.has(message.guild.roles.find(r => r.name === "Bot Operator")))) {
+    } else if (message.content.startsWith("!cleanup ") && !message.member.roles.has(message.guild.roles.find(r => r.name === "Bot Operator"))) {
       message.channel.send("You're not my dad!");
     }
     if (message.content.startsWith("!say ") && message.member.roles.find(r => r.name === "Bot Operator")) {
