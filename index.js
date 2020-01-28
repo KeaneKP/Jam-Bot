@@ -114,8 +114,7 @@ client.on('message', message => {
     if (message.content == "!vote") {
       let member = message.member;
 
-      message.delete(10000);
-      message.channel.send('I will send you your token via DM within the next 5 seconds.')
+      message.channel.send('I will send you your token via DM within the next 5 seconds.');
 
       // 16777215 = 0xffffff
       let token = Math.floor(Math.random()*16777215).toString(16);
