@@ -6,6 +6,10 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
 });
+
+client.on('error', console.error);
+client.on('uncaughtException', console.error);
+
 let introMessages = 0;
 client.on('message', message => {
   let programmer = message.guild.roles.find(r => r.name === "Programmer");
