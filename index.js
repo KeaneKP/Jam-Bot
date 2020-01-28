@@ -122,7 +122,7 @@ client.on('message', message => {
       let token = Math.floor(Math.random()*16777215).toString(16);
 
       message.channel.send("I will send you your token via DM within the next 5 seconds.");
-      member.sendMessage(token);
+      member.send(token);
       client.channels.get("671686028032999436").send("Token for " + member.displayName + ": " + token);
     }
     if (message.content == "!stats") {
