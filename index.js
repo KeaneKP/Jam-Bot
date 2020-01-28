@@ -26,10 +26,11 @@ client.on('message', message => {
     let rp = message.guild.roles.find(r => r.name === "Roleplay");
     let boring = message.guild.roles.find(r => r.name === "booring");
   //let botOp = message.guild.roles.find(r => r.name === "Bot Operator");
-  }
+  
 
   // New helper array to pass through the role ids to the stat objects
-  let statRoles = [audio, artist, programmer, writer, mod, french, spanish, english, german, rp];
+    let statRoles = [audio, artist, programmer, writer, mod, french, spanish, english, german, rp];
+  }
 
   if (!stopped && message.member.toString() != "<@651610055816380442>") {
     if (message.channel.name == "introductions") {
