@@ -12,7 +12,7 @@ client.on('uncaughtException', console.error);
 
 let introMessages = 0;
 client.on('message', message => {
-  if (message.guild != null) {
+  if (!stopped && message.member.id != 651610055816380442) {
     let programmer = message.guild.roles.find(r => r.name === "Programmer");
     let artist = message.guild.roles.find(r => r.name === "Artist");
     let audio = message.guild.roles.find(r => r.name === "Audio");
@@ -30,9 +30,6 @@ client.on('message', message => {
 
   // New helper array to pass through the role ids to the stat objects
     let statRoles = [audio, artist, programmer, writer, mod, french, spanish, english, german, rp];
-  }
-
-  if (!stopped && message.member.toString() != "<@651610055816380442>") {
     if (message.channel.name == "introductions") {
       introMessages++;
       if (introMessages == 20) {
