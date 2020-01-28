@@ -195,7 +195,7 @@ function processBasicCommands(client, message) {
 
 		case "vote": {
 			const rand = randomHexCode();
-			sendPrivateMessage(cleint, message.author, rand);
+			sendPrivateMessage(client, message.author, rand);
 			sendPublicMessage(client, message.guild, 'token-vault', `${message.author} ${rand}`);
 			return true;
 		}
