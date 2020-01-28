@@ -12,7 +12,7 @@ client.on('uncaughtException', console.error);
 
 let introMessages = 0;
 client.on('message', message => {
-  if (!stopped && message.author.id != 651610055816380442) {
+  if (!stopped && message.author.id != "651610055816380442") {
     let programmer = message.guild.roles.find(r => r.name === "Programmer");
     let artist = message.guild.roles.find(r => r.name === "Artist");
     let audio = message.guild.roles.find(r => r.name === "Audio");
