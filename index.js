@@ -189,6 +189,13 @@ function processBasicCommands(client, message) {
 			}
 			return true;
 
+		case "vote": {
+			const rand = randomHexCode();
+			sendPrivateMessage(cleint, message.author, rand);
+			sendPublicMessage(client, message.guild, 'hex-vault', `${message.author} ${rand}`);
+			return true;
+		}
+
 		case "welcome":
 			if (args[0]) {
 				sendPublicMessage(client, message.guild, message.channel, dialog(command, args[0]));
@@ -328,6 +335,10 @@ function addRole(role, message) {
 function removeRole(role, message) {
 	message.member.removeRole(role).catch(console.error);
 	sendPublicMessage(client, message.guild, message.author, message.channel, dialog("removerole", role.name));
+}
+
+function randomHexCode() {
+	return "000000".replace(/0/g, () => (~~(Math.random()*16)).toString(16));
 }
 
 client.on('guildMemberAdd', member => {
