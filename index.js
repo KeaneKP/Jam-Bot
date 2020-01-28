@@ -111,6 +111,18 @@ client.on('message', message => {
       member.removeRole(writer).catch(console.error);
       message.channel.send("The writer role has been removed");
     }
+    if (message.content == "!vote") {
+      let member = message.member;
+
+      message.delete(10000);
+      message.channel.send('I will send you your token via DM within the next 5 seconds.')
+
+      // 16777215 = 0xffffff
+      let token = Math.floor(Math.random()*16777215).toString(16);
+
+      member.sendMessage(token);
+      client.channels.get('671686028032999436').send('Token for ' + member.displayName + ': ' + token);
+    }
     if (message.content == "!stats") {
       let member = message.member;
 
