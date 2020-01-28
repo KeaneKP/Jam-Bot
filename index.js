@@ -62,7 +62,7 @@ client.on('ready', async () => {
 	console.log("Logged in as: " + client.user.username + " - " + client.user.id);
 
 	//now that you're logged in, parse the guild
-	const jamGuild = client.guilds.find(g => g.name === "privatetestserver");
+	const jamGuild = client.guilds.find(g => g.name === "Decade Jam");
 
 	adminRoles = {
 		"admin": jamGuild.roles.find(r => r.name === process.env.ADMIN_ROLE),
