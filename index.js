@@ -12,19 +12,21 @@ client.on('uncaughtException', console.error);
 
 let introMessages = 0;
 client.on('message', message => {
-  let programmer = message.guild.roles.find(r => r.name === "Programmer");
-  let artist = message.guild.roles.find(r => r.name === "Artist");
-  let audio = message.guild.roles.find(r => r.name === "Audio");
-  let admin = message.guild.roles.find(r => r.name === "admin");
-  let mod = message.guild.roles.find(r => r.name === "Moderator");
-  let writer = message.guild.roles.find(r => r.name === "Writer");
-  let french = message.guild.roles.find(r => r.name === "Français");
-  let spanish = message.guild.roles.find(r => r.name === "Español");
-  let english = message.guild.roles.find(r => r.name === "English");
-  let german = message.guild.roles.find(r => r.name === "Deutsch");
-  let rp = message.guild.roles.find(r => r.name === "Roleplay");
-  let boring = message.guild.roles.find(r => r.name === "booring");
+  if (message.guild != null) {
+    let programmer = message.guild.roles.find(r => r.name === "Programmer");
+    let artist = message.guild.roles.find(r => r.name === "Artist");
+    let audio = message.guild.roles.find(r => r.name === "Audio");
+    let admin = message.guild.roles.find(r => r.name === "admin");
+    let mod = message.guild.roles.find(r => r.name === "Moderator");
+    let writer = message.guild.roles.find(r => r.name === "Writer");
+    let french = message.guild.roles.find(r => r.name === "Français");
+    let spanish = message.guild.roles.find(r => r.name === "Español");
+    let english = message.guild.roles.find(r => r.name === "English");
+    let german = message.guild.roles.find(r => r.name === "Deutsch");
+    let rp = message.guild.roles.find(r => r.name === "Roleplay");
+    let boring = message.guild.roles.find(r => r.name === "booring");
   //let botOp = message.guild.roles.find(r => r.name === "Bot Operator");
+  }
 
   // New helper array to pass through the role ids to the stat objects
   let statRoles = [audio, artist, programmer, writer, mod, french, spanish, english, german, rp];
