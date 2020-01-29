@@ -12,24 +12,39 @@ client.on('uncaughtException', console.error);
 
 let introMessages = 0;
 client.on('message', message => {
-  if (!stopped && message.author.id != "651610055816380442") {
-    let programmer = message.guild.roles.find(r => r.name === "Programmer");
-    let artist = message.guild.roles.find(r => r.name === "Artist");
-    let audio = message.guild.roles.find(r => r.name === "Audio");
-    let admin = message.guild.roles.find(r => r.name === "admin");
-    let mod = message.guild.roles.find(r => r.name === "Moderator");
-    let writer = message.guild.roles.find(r => r.name === "Writer");
-    let french = message.guild.roles.find(r => r.name === "Français");
-    let spanish = message.guild.roles.find(r => r.name === "Español");
-    let english = message.guild.roles.find(r => r.name === "English");
-    let german = message.guild.roles.find(r => r.name === "Deutsch");
-    let rp = message.guild.roles.find(r => r.name === "Roleplay");
-    let boring = message.guild.roles.find(r => r.name === "booring");
-  //let botOp = message.guild.roles.find(r => r.name === "Bot Operator");
-  
-
-  // New helper array to pass through the role ids to the stat objects
-    let statRoles = [audio, artist, programmer, writer, mod, french, spanish, english, german, rp];
+  message.capContent = message.content; // To save in case anything ever needs capitalization to stay the same
+  message.content = message.content.toLowerCase(); // prevents capitalization errors
+  if (!stopped && message.author.id != "651610055816380442") { // If the failsafe is not active and the message is not sent by the bot
+    let r = message.guild.roles;
+    let roles = { // r.find(r => r.name === ""),      *for copy and paste
+      programmer: r.find(r => r.name === "Programmer"),
+      artist: r.find(r => r.name === "Artist"),
+      audio: r.find(r => r.name === "Audio"),
+      writer: r.find(r => r.name === "Writer"),
+      admin: r.find(r => r.name === "admin"),
+      mod: r.find(r => r.name === "Moderator"),
+      op: r.find(r => r.name === "Bot Operator"),
+      boring: r.find(r => r.name === "booring"),
+      rp: r.find(r => r.name === "Roleplay"),
+      english: r.find(r => r.name === "English"),
+      french: r.find(r => r.name === "Français"),
+      spanish: r.find(r => r.name === "Español"),
+      german: r.find(r => r.name === "Deutsch")
+    };
+    let accessRoles = { // roles which can be added and removed by users
+      // the variable name is what the user types to gain the role
+      programmer: roles["programmer"],
+      artist: roles["artist"],
+      audio: roles["audio"],
+      writer: roles["writer"],
+      roleplay: roles["rp"],
+      english: roles["english"],
+      french: roles["french"],
+      spanish: roles["spanish"],
+      german: roles["german"]
+    }
+    let statRoles = [roles["audio"], roles["artist"], roles["programmer"], roles["writer"], roles["mod"], roles["french"], rolls["spanish"], rolls["english"], rolls["german"], rolls["rp"]]; // for !stats to cycle through roles
+    
     if (message.channel.name == "introductions") {
       introMessages++;
       if (introMessages == 20) {
@@ -37,15 +52,11 @@ client.on('message', message => {
       }
     }
     if (message.channel.name == "server-suggestions") {
-      message.react("👍");
-      message.react("👎");
+      message.react("👍", "👎"); // putting them in the same function means that they will always be in that order
     }
-    //<#662059386100776963> <#651833116998238222> <#600373758221484054> <#662315416583929866>
-    if (message.content.toLowerCase().startsWith("!welcome") && message.channel.name == "introductions") {
+    if (message.content.startsWith("!welcome") && message.channel.name == "introductions") {
       let member = message.content.slice(8);
       message.channel.send("Welcome  " + member + ", please introduce yourself! Make sure to check out <#662059386100776963>, assign yourself some roles in <#651833116998238222> and share anything you've worked on in <#662315416583929866> We hope you enjoy your stay here and we're looking forward to getting to know you!")
-
-      //-Welcome "+member+"!\n-Check out <#662059386100776963>\n-Assign roles in <#651833116998238222>\n-Chat in <#600373758221484054>\n-Show off your work in <#662315416583929866> \n-*HAVE FUN!*")
     }
     if (message.content == "!add programmer") {
       add(programmer, "programmer", message)
@@ -65,28 +76,28 @@ client.on('message', message => {
     if (message.content == "!add audio") {
       add(audio, "audio", message)
     }
-    if (message.content.toLowerCase() == "!add français" || message.content.toLowerCase() == "!add francais") {
+    if (message.content == "!add français" || message.content == "!add francais") {
       add(french, "français", message)
     }
-    if (message.content.toLowerCase() == "!remove français" || message.content.toLowerCase() == "!remove francais") {
+    if (message.content == "!remove français" || message.content == "!remove francais") {
       remove(french, "français", message)
     }
-    if (message.content.toLowerCase() == "!add español" || message.content.toLowerCase() == "!add espanol") {
+    if (message.content == "!add español" || message.content == "!add espanol") {
       add(spanish, "español", message)
     }
-    if (message.content.toLowerCase() == "!remove español" || message.content.toLowerCase() == "!remove espanol") {
+    if (message.content == "!remove español" || message.content == "!remove espanol") {
       remove(programmer, "español", message)
     }
-    if (message.content.toLowerCase() == "!add english" || message.content.toLowerCase() == "!add english") {
+    if (message.content == "!add english" || message.content == "!add english") {
       add(english, "english", message)
     }
-    if (message.content.toLowerCase() == "!remove english" || message.content.toLowerCase() == "!remove english") {
+    if (message.content == "!remove english" || message.content == "!remove english") {
       remove(english, "english", message)
     }
-    if (message.content.toLowerCase() == "!add deutsch" || message.content.toLowerCase() == "!add deutsch") {
+    if (message.content == "!add deutsch" || message.content == "!add deutsch") {
       add(german, "deutsch", message)
     }
-    if (message.content.toLowerCase() == "!remove deutsch" || message.content.toLowerCase() == "!remove deutsch") {
+    if (message.content == "!remove deutsch" || message.content == "!remove deutsch") {
       remove(german, "deutsch", message)
     }
     if (message.content == "!remove artist") {
@@ -95,10 +106,10 @@ client.on('message', message => {
     if (message.content == "!remove audio") {
       remove(audio, "audio", message)
     }
-    if (message.content.toLowerCase().includes("joe") && message.member.toString() != "<@651610055816380442>") {
+    if (message.content.includes("joe") && message.member.toString() != "<@651610055816380442>") {
       message.channel.send("JOE MAMMA");
     }
-    if (message.content.toLowerCase().includes("creeper")) {
+    if (message.content.includes("creeper")) {
       message.channel.send("AWWWWWWWWW MAN");
     }
     if (message.content == "!kill") {
@@ -182,9 +193,9 @@ client.on('message', message => {
         );
     }
 
-    if (message.content.toLowerCase().startsWith("!sacrifice ")) {
+    if (message.content.startsWith("!sacrifice ")) {
       message.channel.send("You have sacrificed " + message.content.slice(11) + sacrificeOutcome())
-    } else if (message.content.toLowerCase().includes("x") && message.member.toString() != "<@651610055816380442>" && message.channel.name == "bot-use") {
+    } else if (message.content.includes("x") && message.member.toString() != "<@651610055816380442>" && message.channel.name == "bot-use") {
       message.channel.send(message.member.toString() + "  YOU HAVE ANGERED THE SPIRITS! Quick! use !sacrifice *sacrifice* to please them again!");
     }
     if (message.content.startsWith("!roll d")) {
@@ -207,7 +218,7 @@ client.on('message', message => {
         }
       }
     }
-    if (message.content.toLowerCase().startsWith("!summon ")) {
+    if (message.content.startsWith("!summon ")) {
       message.channel.send(message.content.slice(7))
       message.channel.send(message.content.slice(7))
       message.channel.send(message.content.slice(7))
