@@ -45,8 +45,8 @@ client.on('message', message => {
     }
     let statRoles = [roles["audio"], roles["artist"], roles["programmer"], roles["writer"], roles["mod"], roles["french"], rolls["spanish"], rolls["english"], rolls["german"], rolls["rp"]]; // for !stats to cycle through roles
     
-    if (message.channel.name == "introductions") {
-      introMessages++;
+    if (message.channel.name == "introductions") { // auto moderate to keep introductions from getting off topic
+      introMessages++; // this resets when someone joins
       if (introMessages == 20) {
         message.channel.send("Hey guys! You seem to have sent a lot of messages since the last person joined, perhaps move to <#600373758221484054> or a different channel? This is an automated message and just a suggestion, so don't take it personally.")
       }
@@ -54,77 +54,11 @@ client.on('message', message => {
     if (message.channel.name == "server-suggestions") {
       message.react("👍", "👎"); // putting them in the same function means that they will always be in that order
     }
-    if (message.content.startsWith("!welcome") && message.channel.name == "introductions") {
-      let member = message.content.slice(8);
-      message.channel.send("Welcome  " + member + ", please introduce yourself! Make sure to check out <#662059386100776963>, assign yourself some roles in <#651833116998238222> and share anything you've worked on in <#662315416583929866> We hope you enjoy your stay here and we're looking forward to getting to know you!")
-    }
-    if (message.content == "!add programmer") {
-      add(programmer, "programmer", message)
-    }
-    if (message.content == "!remove programmer") {
-      remove(programmer, "programmer", message)
-    }
-    if (message.content == "!add roleplay") {
-      add(rp, "roleplay", message)
-    }
-    if (message.content == "!remove roleplay") {
-      remove(rp, "roleplay", message);
-    }
-    if (message.content == "!add artist") {
-      add(artist, "artist", message)
-    }
-    if (message.content == "!add audio") {
-      add(audio, "audio", message)
-    }
-    if (message.content == "!add français" || message.content == "!add francais") {
-      add(french, "français", message)
-    }
-    if (message.content == "!remove français" || message.content == "!remove francais") {
-      remove(french, "français", message)
-    }
-    if (message.content == "!add español" || message.content == "!add espanol") {
-      add(spanish, "español", message)
-    }
-    if (message.content == "!remove español" || message.content == "!remove espanol") {
-      remove(programmer, "español", message)
-    }
-    if (message.content == "!add english" || message.content == "!add english") {
-      add(english, "english", message)
-    }
-    if (message.content == "!remove english" || message.content == "!remove english") {
-      remove(english, "english", message)
-    }
-    if (message.content == "!add deutsch" || message.content == "!add deutsch") {
-      add(german, "deutsch", message)
-    }
-    if (message.content == "!remove deutsch" || message.content == "!remove deutsch") {
-      remove(german, "deutsch", message)
-    }
-    if (message.content == "!remove artist") {
-      remove(artist, "artist", message)
-    }
-    if (message.content == "!remove audio") {
-      remove(audio, "audio", message)
-    }
     if (message.content.includes("joe") && message.member.toString() != "<@651610055816380442>") {
       message.channel.send("JOE MAMMA");
     }
     if (message.content.includes("creeper")) {
       message.channel.send("AWWWWWWWWW MAN");
-    }
-    if (message.content == "!kill") {
-      stopped = true;
-      message.channel.send("MY BATTERY IS LOW AND IT'S GETTING DARK <@&657681013882880000>");
-    }
-    if (message.content == "!add writer") {
-      let member = message.member;
-      member.addRole(writer).catch(console.error);
-      message.channel.send("The writer role has been added");
-    }
-    if (message.content == "!remove writer") {
-      let member = message.member;
-      member.removeRole(writer).catch(console.error);
-      message.channel.send("The writer role has been removed");
     }
     if (message.content == "!vote") {
       let member = message.member;
@@ -192,37 +126,6 @@ client.on('message', message => {
             statCounter.none
         );
     }
-
-    if (message.content.startsWith("!sacrifice ")) {
-      message.channel.send("You have sacrificed " + message.content.slice(11) + sacrificeOutcome())
-    } else if (message.content.includes("x") && message.member.toString() != "<@651610055816380442>" && message.channel.name == "bot-use") {
-      message.channel.send(message.member.toString() + "  YOU HAVE ANGERED THE SPIRITS! Quick! use !sacrifice *sacrifice* to please them again!");
-    }
-    if (message.content.startsWith("!roll d")) {
-      if (message.content.includes("+")) {
-        const mod = message.content.indexOf("+");
-        console.log("Mod index: " + mod)
-        let roll = Math.floor(Math.random() * +message.content.slice(7, mod)) + +message.content.slice(mod + 1) + 1;
-        console.log("roll: " + roll)
-        message.channel.send("🎲 You have rolled a " + roll + " 🎲");
-        console.log("output: 🎲 You have rolled a " + roll + " 🎲")
-      } else if (message.content.includes("-")) {
-        const mod = message.content.indexOf("-");
-        let roll = Math.floor(Math.random() * +message.content.slice(7, mod)) - +message.content.slice(mod + 1) + 1;
-        message.channel.send("🎲 You have rolled a " + roll + " 🎲")
-      } else {
-        try {
-          message.channel.send("🎲 You have rolled a " + (Math.floor(Math.random() * +message.content.slice(7)) + 1) + " 🎲")
-        } catch {
-          message.channel.send("The command has failed, make sure you are rolling an integer die.")
-        }
-      }
-    }
-    if (message.content.startsWith("!summon ")) {
-      message.channel.send(message.content.slice(7))
-      message.channel.send(message.content.slice(7))
-      message.channel.send(message.content.slice(7))
-    }
     if (message.content.startsWith("!cleanup ") && message.member.roles.find(r => r.name === "Bot Operator")) {
       try {
         for (let i = 0; i < +message.content.slice(8); i++) {
@@ -241,14 +144,7 @@ client.on('message', message => {
       message.delete(1000);
       message.channel.send(message.content.slice(4, message.content.length));
     }
-    if (message.content.startsWith("!cast ")) {
-      let spell = message.content.slice(6);
-      message.channel.send("You cast " + spell + "! It was " + randomEffect());
-    }
-  } else if (message.content == "!revive") {
-    stopped = false;
-    message.channel.send("Back up and at em!")
-  }
+  } 
 })
 // General = <#600373758221484054>
 client.on('guildMemberAdd', member => {
@@ -315,75 +211,6 @@ function countRoles(value, key, map) {
     value.addRole(message.guild.roles.find(r => r.name === "booring"));
   } else if (value.roles.find(r => r.name === "booring")) {
     value.removeRole(message.guild.roles.find(r => r.name === "booring"));
-  }
-}
-
-function sacrificeOutcome() {
-  x = Math.floor(Math.random() * 4);
-  switch (x) {
-    case 0:
-      return ". The spirits are pleased"
-      break;
-    case 1:
-      return ". The spirits are neutral"
-      break;
-    case 2:
-      return ". The spirits are not impressed"
-      break;
-    case 3:
-      return ". The spirits are displeased"
-      break;
-  }
-}
-function randomEffect() {
-  x = Math.floor(Math.random() * 14);
-  switch (x) {
-    case 0:
-      return "super effective!"
-      break;
-    case 1:
-      return "very effect"
-      break;
-    case 2:
-      return "not very effective"
-      break;
-    case 3:
-      return "effective"
-      break;
-    case 4:
-      return "shit"
-      break;
-    case 5:
-      return "very effective"
-      break;
-    case 6:
-      return "*ok*"
-      break;
-    case 7:
-      return "a thing"
-      break;
-    case 8:
-      return "super effective!"
-      break;
-    case 9:
-      return "effective"
-      break;
-    case 10:
-      return "not effective"
-      break;
-    case 11:
-      return "kind of effective"
-      break;
-    case 12:
-      return "effective"
-      break;
-    case 13:
-      return "very effective"
-      break;
-    case 14:
-      return "SuBsCrIbE tO PeWdIePiE"
-      break;
-
   }
 }
 const add = (role, textRole, message) => {
