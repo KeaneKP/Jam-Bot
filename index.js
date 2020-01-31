@@ -235,23 +235,33 @@ function processBasicCommands(client, message) {
 			});
 
 			sendPublicMessage(client, message.guild, message.channel,
-				"**Server Stats:**\n" +
-				"\nMembers: "		+ total +
-				"\nProgrammers: "	+ (roleCounter[validRoles["programmer"].id] || 0) +
-				"\nArtists: "		+ (roleCounter[validRoles["artist"].id] || 0) +
-				"\nAudio: "			+ (roleCounter[validRoles["audio"].id] || 0) +
-				"\nWriters: "		+ (roleCounter[validRoles["writer"].id] || 0) +
-				"\nRoleplayers: "	+ (roleCounter[validRoles["roleplay"].id] || 0) +
+				"**Server Stats:**\n" 	+
+				"\nMembers: "			+ total +
+				"\nAudio Folks: "		+ (roleCounter[validRoles["audio"].id] || 0) +
+				"\nArtists: "			+ (roleCounter[validRoles["artist"].id] || 0) +
+				"\nProgrammers: "		+ (roleCounter[validRoles["programmer"].id] || 0) +
+				"\nWriters: "			+ (roleCounter[validRoles["writer"].id] || 0) +
+				"\nModerators: "		+ (roleCounter[adminRoles["mod"].id] || 0) +
 
-				"\nEnglish: "		+ (roleCounter[validRoles["english"].id] || 0) +
-				"\nFrench: "		+ (roleCounter[validRoles["français"].id] || 0) +
-				"\nSpanish: "		+ (roleCounter[validRoles["español"].id] || 0) +
-				"\nGerman: "		+ (roleCounter[validRoles["deutsch"].id] || 0) +
+				"\nEnglish: "			+ (roleCounter[validRoles["english"].id] || 0) +
+				"\nFrench: "			+ (roleCounter[validRoles["français"].id] || 0) +
+				"\nSpanish: "			+ (roleCounter[validRoles["español"].id] || 0) +
+				"\nGerman: "			+ (roleCounter[validRoles["deutsch"].id] || 0) +
 
-				"\nAdministrators: "+ (roleCounter[adminRoles["admin"].id] || 0) +
-				"\nModerators: "	+ (roleCounter[adminRoles["mod"].id] || 0) +
-				"\nBot Operators: "	+ (roleCounter[adminRoles["botoperator"].id] || 0) +
-				"\nWithout a role: " + (roleCounter[null] || 0)
+				"\nRoleplayers: "		+ (roleCounter[validRoles["roleplay"].id] || 0) +
+				"\nWithout a role: " 	+ (roleCounter[null] || 0) +
+
+				"\n\n```"				+ (roleCounter[validRoles["audio"].id] || 0) +
+				","						+ (roleCounter[validRoles["artist"].id] || 0) +
+				","						+ (roleCounter[validRoles["programmer"].id] || 0) +
+				","						+ (roleCounter[validRoles["writer"].id] || 0) +
+				","						+ (roleCounter[adminRoles["mod"].id] || 0) +
+				","						+ (roleCounter[validRoles["english"].id] || 0) +
+				","						+ (roleCounter[validRoles["français"].id] || 0) +
+				","						+ (roleCounter[validRoles["español"].id] || 0) +
+				","						+ (roleCounter[validRoles["deutsch"].id] || 0) +
+				","						+ (roleCounter[validRoles["roleplay"].id] || 0) +
+				","						+ (roleCounter[null] || 0) + "```"
 			);
 
 			return true;
