@@ -251,7 +251,8 @@ function processBasicCommands(client, message) {
 				"\nRoleplayers: "		+ (roleCounter[validRoles["roleplay"].id] || 0) +
 				"\nWithout a role: " 	+ (roleCounter[null] || 0) +
 
-				"\n\n```"				+ (roleCounter[validRoles["audio"].id] || 0) +
+				"\n\n```"				+ total +
+				","						+ (roleCounter[validRoles["audio"].id] || 0) +
 				","						+ (roleCounter[validRoles["artist"].id] || 0) +
 				","						+ (roleCounter[validRoles["programmer"].id] || 0) +
 				","						+ (roleCounter[validRoles["writer"].id] || 0) +
