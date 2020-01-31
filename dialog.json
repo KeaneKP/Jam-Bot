@@ -2,7 +2,7 @@
 	"help": "Please use !help subject. Type !subjects for a list of subjects.",
 	"subjects": "Subjects include: welcome, add, remove, roll, stats",
 
-	"helpWlcome": "You can automatically welcome somebody with !welcome [name]",
+	"helpWelcome": "You can automatically welcome somebody with !welcome [name]",
 	"helpAdd": "You can give yourself a role using !add [role]. Use !roles for a list of valid roles.",
 	"helpRemove": "You can remove a role from yourself using !remove [role]. Use !roles for a list of valid roles.",
 	"helpRoll": "!roll XdY+Z - roll X dice with Y sides, and add Z to the result.",
