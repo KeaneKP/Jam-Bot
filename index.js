@@ -235,6 +235,11 @@ function processBasicCommands(client, message) {
 				if (noRole) roleCounter[null] = roleCounter[null] + 1 || 1;
 			});
 
+			//get current date in format dd/mm/yyyy
+			date = 	String(date.getDate()).padStart(2, '0') + '/'+
+					String(date.getMonth() + 1).padStart(2, '0') + '/' +
+					date.getFullYear;
+
 			sendPublicMessage(client, message.guild, message.channel,
 				"**Server Stats:**\n"	+
 				"\nMembers: "			+ total +
@@ -253,7 +258,7 @@ function processBasicCommands(client, message) {
 				"\nCommunity Project: "	+ (roleCounter[validRoles["project"].id] || 0) +
 				"\nWithout a role: " 	+ (roleCounter[null] || 0) +
 
-				"\n\n```"				+ total +
+				"\n\n```"				+ date + ",,," + total +
 				","						+ (roleCounter[validRoles["audio"].id] || 0) +
 				","						+ (roleCounter[validRoles["artist"].id] || 0) +
 				","						+ (roleCounter[validRoles["programmer"].id] || 0) +
