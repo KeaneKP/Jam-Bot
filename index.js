@@ -80,6 +80,7 @@ client.on('ready', async () => {
 		"audio": jamGuild.roles.find(r => r.name === "Audio"),
 		"writer": jamGuild.roles.find(r => r.name === "Writer"),
 		"roleplay": jamGuild.roles.find(r => r.name === "Roleplay"),
+		"project": jamGuild.roles.find(r => r.name === "Community Project"),
 
 		"français": jamGuild.roles.find(r => r.name === "Français"),
 		"francais": jamGuild.roles.find(r => r.name === "Français"),
@@ -235,7 +236,7 @@ function processBasicCommands(client, message) {
 			});
 
 			sendPublicMessage(client, message.guild, message.channel,
-				"**Server Stats:**\n" 	+
+				"**Server Stats:**\n"	+
 				"\nMembers: "			+ total +
 				"\nAudio Folks: "		+ (roleCounter[validRoles["audio"].id] || 0) +
 				"\nArtists: "			+ (roleCounter[validRoles["artist"].id] || 0) +
@@ -249,6 +250,7 @@ function processBasicCommands(client, message) {
 				"\nGerman: "			+ (roleCounter[validRoles["deutsch"].id] || 0) +
 
 				"\nRoleplayers: "		+ (roleCounter[validRoles["roleplay"].id] || 0) +
+				"\nCommunity Project: "	+ (roleCounter[validRoles["project"].id] || 0) +
 				"\nWithout a role: " 	+ (roleCounter[null] || 0) +
 
 				"\n\n```"				+ total +
@@ -262,6 +264,7 @@ function processBasicCommands(client, message) {
 				","						+ (roleCounter[validRoles["español"].id] || 0) +
 				","						+ (roleCounter[validRoles["deutsch"].id] || 0) +
 				","						+ (roleCounter[validRoles["roleplay"].id] || 0) +
+				","						+ (roleCounter[validRoles["project"].id] || 0) +
 				","						+ (roleCounter[null] || 0) + "```"
 			);
 
