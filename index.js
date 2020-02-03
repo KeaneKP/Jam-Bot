@@ -6,6 +6,11 @@ let discord = require('discord.js');
 let client = new discord.Client();
 let { parseAndRoll } = require("roll-parser");
 
+let axios = require('axios');
+let cheerio = require('cheerio');
+
+let url = 'https://itch.io/jam/decadejam';
+
 // Bot Modules
 let {sendPublicMessage, sendPrivateMessage, generateDialogFunction, isAdmin} = require("./utility.js");
 
@@ -224,59 +229,77 @@ function processBasicCommands(client, message) {
 		case "stats":
 			let roleCounter = {};
 			let total = 0;
+			let itch_stats = [];
 
-			//count each role instance
-			message.guild.members.forEach(member => {
-				if (member.user.bot) return; //skip bots
-				total++;
-				let noRole = true;
-				Object.values(validRoles).forEach(role => { if (member.roles.has(role.id)) { roleCounter[role.id] = roleCounter[role.id] + 1 || 1; noRole = false; }});
-				Object.values(adminRoles).forEach(role => { if (member.roles.has(role.id)) { roleCounter[role.id] = roleCounter[role.id] + 1 || 1; noRole = false; }});
-				if (noRole) roleCounter[null] = roleCounter[null] + 1 || 1;
-			});
+			fetchData(url).then( (res) => {
+				const html = res.data;
+				const $ = cheerio.load(html);
+				const statsContainer = $('.stats_container > div');
+				statsContainer.each(function() {
+					let stat = $(this).find('.stat_value').text();
+					stat = stat.replace(',','');
+					itch_stats.push(stat);
+				});
+
+				//count each role instance
+				message.guild.members.forEach(member => {
+					if (member.user.bot) return; //skip bots
+					total++;
+					let noRole = true;
+					Object.values(validRoles).forEach(role => { if (member.roles.has(role.id)) { roleCounter[role.id] = roleCounter[role.id] + 1 || 1; noRole = false; }});
+					Object.values(adminRoles).forEach(role => { if (member.roles.has(role.id)) { roleCounter[role.id] = roleCounter[role.id] + 1 || 1; noRole = false; }});
+					if (noRole) roleCounter[null] = roleCounter[null] + 1 || 1;
+				});
 
 
-			//get current date in format dd/mm/yyyy
-			var date = new Date();
+				//get current date in format dd/mm/yyyy
+				var date = new Date();
 
-			date = 	String(date.getDate()).padStart(2, '0') + '/'+
-					String(date.getMonth() + 1).padStart(2, '0') + '/' +
-					date.getFullYear();
+				date = 	String(date.getDate()).padStart(2, '0') + '/'+
+						String(date.getMonth() + 1).padStart(2, '0') + '/' +
+						date.getFullYear();
 
-			sendPublicMessage(client, message.guild, message.channel,
-				"**Server Stats:**\n"	+
-				"\nMembers: "			+ total +
-				"\nAudio Folks: "		+ (roleCounter[validRoles["audio"].id] || 0) +
-				"\nArtists: "			+ (roleCounter[validRoles["artist"].id] || 0) +
-				"\nProgrammers: "		+ (roleCounter[validRoles["programmer"].id] || 0) +
-				"\nWriters: "			+ (roleCounter[validRoles["writer"].id] || 0) +
-				"\nModerators: "		+ (roleCounter[adminRoles["mod"].id] || 0) +
+				sendPublicMessage(client, message.guild, message.channel,
+					"**Itch Stats:**\n"			+
+					"\nMembers: "				+ itch_stats[0] +
+					"\nSubmissions: "			+ itch_stats[1] +
 
-				"\nEnglish: "			+ (roleCounter[validRoles["english"].id] || 0) +
-				"\nFrench: "			+ (roleCounter[validRoles["français"].id] || 0) +
-				"\nSpanish: "			+ (roleCounter[validRoles["español"].id] || 0) +
-				"\nGerman: "			+ (roleCounter[validRoles["deutsch"].id] || 0) +
+					"\n\n\n**Server Stats:**\n"	+
+					"\nMembers: "				+ total +
+					"\nAudio Folks: "			+ (roleCounter[validRoles["audio"].id] || 0) +
+					"\nArtists: "				+ (roleCounter[validRoles["artist"].id] || 0) +
+					"\nProgrammers: "			+ (roleCounter[validRoles["programmer"].id] || 0) +
+					"\nWriters: "				+ (roleCounter[validRoles["writer"].id] || 0) +
+					"\nModerators: "			+ (roleCounter[adminRoles["mod"].id] || 0) +
 
-				"\nRoleplayers: "		+ (roleCounter[validRoles["roleplay"].id] || 0) +
-				"\nCommunity Project: "	+ (roleCounter[validRoles["project"].id] || 0) +
-				"\nWithout a role: " 	+ (roleCounter[null] || 0) +
+					"\nEnglish: "				+ (roleCounter[validRoles["english"].id] || 0) +
+					"\nFrench: "				+ (roleCounter[validRoles["français"].id] || 0) +
+					"\nSpanish: "				+ (roleCounter[validRoles["español"].id] || 0) +
+					"\nGerman: "				+ (roleCounter[validRoles["deutsch"].id] || 0) +
 
-				"\n\n```"				+ date + ",,," + total +
-				","						+ (roleCounter[validRoles["audio"].id] || 0) +
-				","						+ (roleCounter[validRoles["artist"].id] || 0) +
-				","						+ (roleCounter[validRoles["programmer"].id] || 0) +
-				","						+ (roleCounter[validRoles["writer"].id] || 0) +
-				","						+ (roleCounter[adminRoles["mod"].id] || 0) +
-				","						+ (roleCounter[validRoles["english"].id] || 0) +
-				","						+ (roleCounter[validRoles["français"].id] || 0) +
-				","						+ (roleCounter[validRoles["español"].id] || 0) +
-				","						+ (roleCounter[validRoles["deutsch"].id] || 0) +
-				","						+ (roleCounter[validRoles["roleplay"].id] || 0) +
-				","						+ (roleCounter[validRoles["project"].id] || 0) +
-				","						+ (roleCounter[null] || 0) + "```"
-			);
+					"\nRoleplayers: "			+ (roleCounter[validRoles["roleplay"].id] || 0) +
+					"\nCommunity Project: "		+ (roleCounter[validRoles["project"].id] || 0) +
+					"\nWithout a role: " 		+ (roleCounter[null] || 0) +
 
-			return true;
+					"\n\n```"					+ date +
+					","							+ itch_stats[0] +
+					","							+ itch_stats[1] +
+					","							+ total +
+					","							+ (roleCounter[validRoles["audio"].id] || 0) +
+					","							+ (roleCounter[validRoles["artist"].id] || 0) +
+					","							+ (roleCounter[validRoles["programmer"].id] || 0) +
+					","							+ (roleCounter[validRoles["writer"].id] || 0) +
+					","							+ (roleCounter[adminRoles["mod"].id] || 0) +
+					","							+ (roleCounter[validRoles["english"].id] || 0) +
+					","							+ (roleCounter[validRoles["français"].id] || 0) +
+					","							+ (roleCounter[validRoles["español"].id] || 0) +
+					","							+ (roleCounter[validRoles["deutsch"].id] || 0) +
+					","							+ (roleCounter[validRoles["roleplay"].id] || 0) +
+					","							+ (roleCounter[validRoles["project"].id] || 0) +
+					","							+ (roleCounter[null] || 0) + "```"
+				);
+			})
+		return true;
 
 		case "sacrifice":
 			if (args[0]) {
@@ -365,6 +388,18 @@ function removeRole(role, message) {
 
 function randomHexCode() {
 	return "000000".replace(/0/g, () => (~~(Math.random()*16)).toString(16));
+}
+
+async function fetchData(url){
+    console.log("Crawling data...")
+    // make http call to url
+    let response = await axios(url).catch((err) => console.log(err));
+
+    if(response.status !== 200){
+        console.log("Error occurred while fetching data");
+        return;
+    }
+    return response;
 }
 
 client.on('guildMemberAdd', member => {
