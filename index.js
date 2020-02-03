@@ -235,7 +235,10 @@ function processBasicCommands(client, message) {
 				if (noRole) roleCounter[null] = roleCounter[null] + 1 || 1;
 			});
 
+
 			//get current date in format dd/mm/yyyy
+			var date = new Date();
+
 			date = 	String(date.getDate()).padStart(2, '0') + '/'+
 					String(date.getMonth() + 1).padStart(2, '0') + '/' +
 					date.getFullYear;
