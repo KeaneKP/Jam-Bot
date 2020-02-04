@@ -88,9 +88,7 @@ client.on('ready', async () => {
 		"project": jamGuild.roles.find(r => r.name === "Community Project"),
 
 		"français": jamGuild.roles.find(r => r.name === "Français"),
-		"francais": jamGuild.roles.find(r => r.name === "Français"),
 		"español": jamGuild.roles.find(r => r.name === "Español"),
-		"espanol": jamGuild.roles.find(r => r.name === "Español"),
 		"english": jamGuild.roles.find(r => r.name === "English"),
 		"deutsch": jamGuild.roles.find(r => r.name === "Deutsch"),
 	};
