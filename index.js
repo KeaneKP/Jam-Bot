@@ -186,14 +186,14 @@ function processBasicCommands(client, message) {
 			return true;
 
 		case "add":
-			if (args[0] && validRoles[args[0]]) {
-				addRole(validRoles[args[0]], message);
+			if (args[0] && validRoles[args[0].toLowerCase()]) {
+				addRole(validRoles[args[0].toLowerCase()], message);
 			}
 			return true;
 
 		case "remove":
-			if (args[0] && validRoles[args[0]]) {
-				removeRole(validRoles[args[0]], message);
+			if (args[0] && validRoles[args[0].toLowerCase()]) {
+				removeRole(validRoles[args[0].toLowerCase()], message);
 			}
 			return true;
 
