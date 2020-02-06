@@ -8,7 +8,7 @@
 	"helpRoll": "!roll XdY+Z - roll X dice with Y sides, and add Z to the result.",
 	"helpStats": "You can get a list of role statistics using !stats",
 
-	"roles": "Valid roles you can grant yourself are: programmer, artist, audio, writer, roleplay, project, english, français, español, deutsch.",
+	"roles": "Valid roles you can grant yourself are: programmer, artist, audio, writer, roleplay, project, english, français, español, deutsch, he, she, they, other",
 
 
 	"introUrging": "Hey guys! You seem to have sent a lot of messages since the last person joined, perhaps move to {1} or a different channel? This is an automated message and just a suggestion, so don't take it personally.",
