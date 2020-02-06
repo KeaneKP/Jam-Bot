@@ -91,6 +91,11 @@ client.on('ready', async () => {
 		"español": jamGuild.roles.find(r => r.name === "Español"),
 		"english": jamGuild.roles.find(r => r.name === "English"),
 		"deutsch": jamGuild.roles.find(r => r.name === "Deutsch"),
+		
+		"he": jamGuild.roles.find(r => r.name === "he"),
+		"she": jamGuild.roles.find(r => r.name === "she"),
+		"they": jamGuild.roles.find(r => r.name === "they"),
+		"other": jamGuild.roles.find(r => r.name === "other pronoun"),
 	};
 });
 
