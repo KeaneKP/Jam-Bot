@@ -98,7 +98,7 @@ client.on('ready', async () => {
 		"other": jamGuild.roles.find(r => r.name === "other pronoun"),
 	};
 
-	const booringRole = jamGuild.roles.find(r => r.name === "booring");
+	booringRole = jamGuild.roles.find(r => r.name === "booring");
 });
 
 // Create an event listener for messages
