@@ -91,12 +91,14 @@ client.on('ready', async () => {
 		"español": jamGuild.roles.find(r => r.name === "Español"),
 		"english": jamGuild.roles.find(r => r.name === "English"),
 		"deutsch": jamGuild.roles.find(r => r.name === "Deutsch"),
-		
+
 		"he": jamGuild.roles.find(r => r.name === "he"),
 		"she": jamGuild.roles.find(r => r.name === "she"),
 		"they": jamGuild.roles.find(r => r.name === "they"),
 		"other": jamGuild.roles.find(r => r.name === "other pronoun"),
 	};
+
+	const booringRole = jamGuild.roles.find(r => r.name === "booring");
 });
 
 // Create an event listener for messages
@@ -193,6 +195,7 @@ function processBasicCommands(client, message) {
 		case "add":
 			if (args[0] && validRoles[args[0].toLowerCase()]) {
 				addRole(validRoles[args[0].toLowerCase()], message);
+				removeRole(booringRole, message);
 			}
 			return true;
 
