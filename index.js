@@ -383,11 +383,17 @@ function processAdminCommands(client, message) {
 
 //misc. functions
 function addRole(role, message) {
+
+	if (message.member.roles.has(role.id)) return;
+
 	message.member.addRole(role).catch(console.error);
 	sendPublicMessage(client, message.guild, message.author, message.channel, dialog("addrole", role.name));
 }
 
 function removeRole(role, message) {
+
+	if (!message.member.roles.has(role.id)) return;
+
 	message.member.removeRole(role).catch(console.error);
 	sendPublicMessage(client, message.guild, message.author, message.channel, dialog("removerole", role.name));
 }
