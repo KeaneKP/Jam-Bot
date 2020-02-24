@@ -168,6 +168,10 @@ function passiveResponses(client, message) {
 	if (message.content.toLowerCase().includes("creeper")) {
 		sendPublicMessage(client, message.guild, message.channel, "AWWWWWWWWW MAN");
 	}
+
+	if (message.content.toLowerCase().includes("good bot")) {
+		message.react("🐶");
+	}
 }
 
 function processBasicCommands(client, message) {
