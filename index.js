@@ -23,6 +23,7 @@ let alive = true;
 
 let adminRoles = {}; //defined below
 let validRoles = {}; //defined below
+let booringRole = null;
 
 const http = require('http');
 const express = require('express');
