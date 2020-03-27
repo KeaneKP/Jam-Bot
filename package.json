@@ -5,10 +5,7 @@
   "main": "index.js",
   "author": "",
   "scripts": {
-    "start": "node index.js",
-    "restart": "forever -o forever.log -e error.log restart index.js",
-    "stop": "forever stop index.js",
-    "node": "node index.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
