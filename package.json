@@ -5,7 +5,7 @@
   "main": "index.js",
   "author": "",
   "scripts": {
-    "start": "forever -o forever.log -e error.log start index.js",
+    "start": "node index.js",
     "restart": "forever -o forever.log -e error.log restart index.js",
     "stop": "forever stop index.js",
     "node": "node index.js"
@@ -13,9 +13,10 @@
   "dependencies": {
     "axios": "^0.19.2",
     "cheerio": "^1.0.0-rc.3",
-    "discord.js": "^11.5.1",
+    "discord.js": "^12.0.2",
     "dotenv": "^8.2.0",
     "forever": "^2.0.0",
-    "roll-parser": "^2.3.2"
+    "roll-parser": "^2.3.2",
+    "express": "^4.17.1"
   }
 }

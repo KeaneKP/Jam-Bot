@@ -24,6 +24,18 @@ let alive = true;
 let adminRoles = {}; //defined below
 let validRoles = {}; //defined below
 
+const http = require('http');
+const express = require('express');
+const app = express();
+app.get("/", (request, response) => {
+  console.log(Date.now() + " Ping Received");
+  response.sendStatus(200);
+});
+app.listen(process.env.PORT);
+setInterval(() => {
+  http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
+}, 280000);
+
 //ADAM dialog decorator
 //NOTE: This isn't strictly necessary for the bots
 dialog = function(baseDialog) {
@@ -74,31 +86,31 @@ client.on('ready', async () => {
 	}
 
 	adminRoles = {
-		"admin": jamGuild.roles.find(r => r.name === process.env.ADMIN_ROLE),
-		"mod": jamGuild.roles.find(r => r.name === process.env.MOD_ROLE),
-		"botoperator": jamGuild.roles.find(r => r.name === "Bot Operator"),
+		"admin": jamGuild.roles.cache.find(r => r.name === process.env.ADMIN_ROLE),
+		"mod": jamGuild.roles.cache.find(r => r.name === process.env.MOD_ROLE),
+		"botoperator": jamGuild.roles.cache.find(r => r.name === "Bot Operator"),
 	};
 
 	validRoles = {
-		"programmer": jamGuild.roles.find(r => r.name === "Programmer"),
-		"artist": jamGuild.roles.find(r => r.name === "Artist"),
-		"audio": jamGuild.roles.find(r => r.name === "Audio"),
-		"writer": jamGuild.roles.find(r => r.name === "Writer"),
-		"roleplay": jamGuild.roles.find(r => r.name === "Roleplay"),
-		"project": jamGuild.roles.find(r => r.name === "Community Project"),
+		"programmer": jamGuild.roles.cache.find(r => r.name === "Programmer"),
+		"artist": jamGuild.roles.cache.find(r => r.name === "Artist"),
+		"audio": jamGuild.roles.cache.find(r => r.name === "Audio"),
+		"writer": jamGuild.roles.cache.find(r => r.name === "Writer"),
+		"roleplay": jamGuild.roles.cache.find(r => r.name === "Roleplay"),
+		"project": jamGuild.roles.cache.find(r => r.name === "Community Project"),
 
-		"français": jamGuild.roles.find(r => r.name === "Français"),
-		"español": jamGuild.roles.find(r => r.name === "Español"),
-		"english": jamGuild.roles.find(r => r.name === "English"),
-		"deutsch": jamGuild.roles.find(r => r.name === "Deutsch"),
+		"français": jamGuild.roles.cache.find(r => r.name === "Français"),
+		"español": jamGuild.roles.cache.find(r => r.name === "Español"),
+		"english": jamGuild.roles.cache.find(r => r.name === "English"),
+		"deutsch": jamGuild.roles.cache.find(r => r.name === "Deutsch"),
 
-		"he": jamGuild.roles.find(r => r.name === "he"),
-		"she": jamGuild.roles.find(r => r.name === "she"),
-		"they": jamGuild.roles.find(r => r.name === "they"),
-		"other": jamGuild.roles.find(r => r.name === "other pronoun"),
+		"he": jamGuild.roles.cache.find(r => r.name === "he"),
+		"she": jamGuild.roles.cache.find(r => r.name === "she"),
+		"they": jamGuild.roles.cache.find(r => r.name === "they"),
+		"other": jamGuild.roles.cache.find(r => r.name === "other pronoun"),
 	};
 
-	booringRole = jamGuild.roles.find(r => r.name === "booring");
+	booringRole = jamGuild.roles.cache.find(r => r.name === "booring");
 });
 
 // Create an event listener for messages
@@ -149,7 +161,7 @@ function passiveResponses(client, message) {
 			//urge the members into off-topic
 			if (++messagesSinceLastJoin >= 20) {
 				messagesSinceLastJoin = 0;
-				const channel = message.guild.channels.find(channel => channel.name === "off-topic");
+				const channel = message.guild.channels.cache.find(channel => channel.name === "off-topic");
 				sendPublicMessage(client, message.guild, message.channel, dialog("introUrging", `<#${channel.id}>`));
 			}
 			return true;
@@ -420,7 +432,7 @@ async function fetchData(url){
 
 client.on('guildMemberAdd', member => {
 	messagesSinceLastJoin = 0;
-	let channel = member.guild.channels.find(r => r.name === "introductions");
+	let channel = member.guild.channels.cache.find(r => r.name === "introductions");
 	channel.fetchMessages({ limit: 1 })
 		.then(messages => {
 			let message = messages.first();

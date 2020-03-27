@@ -17,7 +17,7 @@ exports.sendPublicMessage = function(client, guild, user, channel, message) {
 
 	//handle guild strings
 	if (typeof(guild) === "string") {
-		guild = client.guilds.find(item => item.name === guild || item.id === guild);
+		guild = client.guilds.cache.find(item => item.name === guild || item.id === guild);
 		if (!guild) {
 			throw "Can't find that guild";
 		}
@@ -25,7 +25,7 @@ exports.sendPublicMessage = function(client, guild, user, channel, message) {
 
 	//handle channel strings
 	if (typeof(channel) === "string") {
-		channel = guild.channels.find(item => item.name === channel || item.id === channel);
+		channel = guild.channels.cache.find(item => item.name === channel || item.id === channel);
 		if (!channel) {
 			throw "Can't find that channel";
 		}
@@ -33,7 +33,7 @@ exports.sendPublicMessage = function(client, guild, user, channel, message) {
 
 	//handle user strings
 	if (typeof(user) === "string") {
-		let member = guild.members.find(item => item.user.username === user || item.user.id === user || `<@!${item.user.id}>` === user);
+		let member = guild.members.cache.find(item => item.user.username === user || item.user.id === user || `<@!${item.user.id}>` === user);
 		if (!member) {
 			throw "Can't find that member/user";
 		}
@@ -56,7 +56,7 @@ exports.sendPublicMessage = function(client, guild, user, channel, message) {
 exports.sendPrivateMessage = function(client, user, message) {
 	//handle user strings
 	if (typeof(user) === "string") {
-		user = client.users.find(item => item.username === user || item.id === user || `<@!${item.id}>` === user);
+		user = client.users.cache.find(item => item.username === user || item.id === user || `<@!${item.id}>` === user);
 	}
 
 	user.send(message)
@@ -103,5 +103,5 @@ exports.generateDialogFunction = function(dialogJson) {
 //IsAdmin - DEBUGGING ONLY
 //user - discord.js member
 exports.isAdmin = function(member) {
-	return member && member.roles.find(role => role.name === process.env.ADMIN_ROLE || role.name === process.env.MOD_ROLE);
+	return member && member.roles.cache.find(role => role.name === process.env.ADMIN_ROLE || role.name === process.env.MOD_ROLE);
 }
