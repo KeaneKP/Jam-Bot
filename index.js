@@ -265,7 +265,7 @@ function processBasicCommands(client, message) {
 				});
 
 				//count each role instance
-				message.guild.members.forEach(member => {
+				message.guild.members.cache.forEach(member => {
 					if (member.user.bot) return; //skip bots
 					total++;
 					let noRole = true;
