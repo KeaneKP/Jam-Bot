@@ -79,7 +79,7 @@ client.on('ready', async () => {
 	console.log("Logged in as: " + client.user.username + " - " + client.user.id);
 
 	//now that you're logged in, parse the guild
-	const jamGuild = client.guilds.find(g => g.name === "Decade Jam");
+	const jamGuild = client.guilds.cache.find(g => g.name === "Decade Jam");
 
 	if (jamGuild == null) {
 		throw "Failed to find jam guild";
