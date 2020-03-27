@@ -403,7 +403,7 @@ function addRole(role, message) {
 
 	if (message.member.roles.cache.has(role.id)) return;
 
-	message.member.addRole(role).catch(console.error);
+	message.member.roles.add(role).catch(console.error);
 	sendPublicMessage(client, message.guild, message.author, message.channel, dialog("addrole", role.name));
 }
 
@@ -411,7 +411,7 @@ function removeRole(role, message) {
 
 	if (!message.member.roles.cache.has(role.id)) return;
 
-	message.member.removeRole(role).catch(console.error);
+	message.member.roles.remove(role).catch(console.error);
 	sendPublicMessage(client, message.guild, message.author, message.channel, dialog("removerole", role.name));
 }
 
