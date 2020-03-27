@@ -268,8 +268,8 @@ function processBasicCommands(client, message) {
 					if (member.user.bot) return; //skip bots
 					total++;
 					let noRole = true;
-					Object.values(validRoles).forEach(role => { if (member.roles.has(role.id)) { roleCounter[role.id] = roleCounter[role.id] + 1 || 1; noRole = false; }});
-					Object.values(adminRoles).forEach(role => { if (member.roles.has(role.id)) { roleCounter[role.id] = roleCounter[role.id] + 1 || 1; noRole = false; }});
+					Object.values(validRoles).forEach(role => { if (member.roles.cache.has(role.id)) { roleCounter[role.id] = roleCounter[role.id] + 1 || 1; noRole = false; }});
+					Object.values(adminRoles).forEach(role => { if (member.roles.cache.has(role.id)) { roleCounter[role.id] = roleCounter[role.id] + 1 || 1; noRole = false; }});
 					if (noRole) roleCounter[null] = roleCounter[null] + 1 || 1;
 				});
 
@@ -400,7 +400,7 @@ function processAdminCommands(client, message) {
 //misc. functions
 function addRole(role, message) {
 
-	if (message.member.roles.has(role.id)) return;
+	if (message.member.roles.cache.has(role.id)) return;
 
 	message.member.addRole(role).catch(console.error);
 	sendPublicMessage(client, message.guild, message.author, message.channel, dialog("addrole", role.name));
@@ -408,7 +408,7 @@ function addRole(role, message) {
 
 function removeRole(role, message) {
 
-	if (!message.member.roles.has(role.id)) return;
+	if (!message.member.roles.cache.has(role.id)) return;
 
 	message.member.removeRole(role).catch(console.error);
 	sendPublicMessage(client, message.guild, message.author, message.channel, dialog("removerole", role.name));
