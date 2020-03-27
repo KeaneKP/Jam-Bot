@@ -373,22 +373,22 @@ function processAdminCommands(client, message) {
 
 		case "say":
 			sendPublicMessage(client, message.guild, message.channel, args.join(" "));
-			message.delete(10);
+			message.delete();
 			return true;
 
 		case "tell":
 			sendPublicMessage(client, message.guild, args.shift(), message.channel, args.join(" "));
-			message.delete(10);
+			message.delete();
 			return true;
 
 		case "whisper":
 			sendPrivateMessage(client, args.shift(), args.join(" "));
-			message.delete(10);
+			message.delete();
 			return true;
 
 		case "cleanup":
 			if (args[0]) {
-				message.channel.fetchMessages({ limit: +args[0] })
+				message.channel.messages.fetch({ limit: +args[0]+1 })
 					.then( messages => messages.forEach(m => m.delete()) )
 				;
 			}
