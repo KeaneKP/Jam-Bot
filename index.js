@@ -434,7 +434,7 @@ async function fetchData(url){
 client.on('guildMemberAdd', member => {
 	messagesSinceLastJoin = 0;
 	let channel = member.guild.channels.cache.find(r => r.name === "introductions");
-	channel.fetchMessages({ limit: 1 })
+	channel.messages.fetch({ limit: 1 })
 		.then(messages => {
 			let message = messages.first();
 			message.react('👋');
