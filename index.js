@@ -169,7 +169,7 @@ function passiveResponses(client, message) {
 
 		case "server-suggestions":
 			message.react("👍");
-			message.react("👎");
+			    .then(() => message.react('👎'))
 			return true;
 	}
 
