@@ -418,7 +418,9 @@ function addRole(role, message) {
 function removeRole(role, message) {
 
 	if (!message.member.roles.cache.has(role.id)) {
-		sendPublicMessage(client, message.guild, message.author, message.channel, dialog("removenone", role.name));
+		// No message when removing the booring role...
+		if (role != booringRole)
+			sendPublicMessage(client, message.guild, message.author, message.channel, dialog("removenone", role.name));
 	} else {
 		message.member.roles.remove(role).catch(console.error);
 		sendPublicMessage(client, message.guild, message.author, message.channel, dialog("removerole", role.name));
