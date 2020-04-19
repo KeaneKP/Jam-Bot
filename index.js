@@ -213,12 +213,18 @@ function processBasicCommands(client, message) {
 			if (args[0] && validRoles[args[0].toLowerCase()]) {
 				addRole(validRoles[args[0].toLowerCase()], message);
 				removeRole(booringRole, message);
+			} else {
+				if (args[0])
+					sendPublicMessage(client, message.guild, message.author, message.channel, dialog("invalidrole", args[0]));
 			}
 			return true;
 
 		case "remove":
 			if (args[0] && validRoles[args[0].toLowerCase()]) {
 				removeRole(validRoles[args[0].toLowerCase()], message);
+			} else {
+				if (args[0])
+					sendPublicMessage(client, message.guild, message.author, message.channel, dialog("invalidrole", args[0]));
 			}
 			return true;
 
