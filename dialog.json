@@ -41,6 +41,8 @@
 
 	"addrole": "The {1} role has been added.",
 	"removerole": "The {1} role has been removed.",
+	"addduplicate": "You already have the {1} role.",
+	"removenone" : "You don't have the {1} role.",
 
 	"sacrifice": [
 		"The spirits are pleased.",

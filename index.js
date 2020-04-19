@@ -401,18 +401,22 @@ function processAdminCommands(client, message) {
 //misc. functions
 function addRole(role, message) {
 
-	if (message.member.roles.cache.has(role.id)) return;
-
-	message.member.roles.add(role).catch(console.error);
-	sendPublicMessage(client, message.guild, message.author, message.channel, dialog("addrole", role.name));
+	if (message.member.roles.cache.has(role.id)) {
+		sendPublicMessage(client, message.guild, message.author, message.channel, dialog("addduplicate", role.name));
+	} else {
+		message.member.roles.add(role).catch(console.error);
+		sendPublicMessage(client, message.guild, message.author, message.channel, dialog("addrole", role.name));
+	}
 }
 
 function removeRole(role, message) {
 
-	if (!message.member.roles.cache.has(role.id)) return;
-
-	message.member.roles.remove(role).catch(console.error);
-	sendPublicMessage(client, message.guild, message.author, message.channel, dialog("removerole", role.name));
+	if (!message.member.roles.cache.has(role.id)) {
+		sendPublicMessage(client, message.guild, message.author, message.channel, dialog("removenone", role.name));
+	} else {
+		message.member.roles.remove(role).catch(console.error);
+		sendPublicMessage(client, message.guild, message.author, message.channel, dialog("removerole", role.name));
+	}
 }
 
 function randomHexCode() {
