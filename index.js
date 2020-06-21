@@ -120,7 +120,7 @@ client.on('message', async message => {
 	if (message.author.bot) {
 		return;
 	}
-	//comment
+
 	// Has to be (prefix)command
 	if (message.content.indexOf(process.env.PREFIX) !== 0) {
 		try {
@@ -169,7 +169,7 @@ function passiveResponses(client, message) {
 
 		case "server-suggestions":
 			message.react("👍");
-			.then((message.react('👎'));
+			message.react('👎');
 			return true;
 	}
 
