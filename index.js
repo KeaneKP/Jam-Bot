@@ -1,6 +1,8 @@
 // .env Variables
 require('dotenv').config({path: './.env'});
 
+console.log("Starting up")
+
 // Node Modules
 let discord = require('discord.js');
 let client = new discord.Client();
@@ -24,18 +26,6 @@ let alive = true;
 let adminRoles = {}; //defined below
 let validRoles = {}; //defined below
 let booringRole = null;
-
-const http = require('http');
-const express = require('express');
-const app = express();
-app.get("/", (request, response) => {
-  console.log(Date.now() + " Ping Received");
-  response.sendStatus(200);
-});
-app.listen(process.env.PORT);
-setInterval(() => {
-  http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-}, 280000);
 
 //ADAM dialog decorator
 //NOTE: This isn't strictly necessary for the bots
